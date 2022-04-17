@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 public class Enemy : MonoBehaviour
 {
@@ -9,7 +11,7 @@ public class Enemy : MonoBehaviour
     private float rotationSpeed = 6f;
 
     void Start() {
-        target = Waypoints.waypoints[0];    
+        target = Waypoints.waypoints[0];
     }
     void Update() {
         Move();
@@ -26,6 +28,7 @@ public class Enemy : MonoBehaviour
     }
     private void GetNexWaypoint(){
         if(waypointIndex >= Waypoints.waypoints.Length - 1){
+            WaveSpawner.numEnemiesAlive--;
             Destroy(gameObject);
             return;
         }
