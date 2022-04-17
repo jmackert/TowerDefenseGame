@@ -9,14 +9,11 @@ public class WaveSpawner : MonoBehaviour
     //private float timeBetweenWaves = 5f;
     private int waveNumber = 1;
     public static int numEnemiesAlive = 0;
+    public Player player;
     void Update()
     {
-        if(numEnemiesAlive == 0 && Player.currentLives > 0){
+        if(numEnemiesAlive == 0 && player.GetCurrentLives() > 0){
             StartCoroutine(SpawnWave());
-        }
-        if(Player.currentLives <= 0){
-            Debug.Log("You Lose Game Over!");
-            return;
         }
     }
 
