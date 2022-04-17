@@ -9,8 +9,11 @@ public class Enemy : MonoBehaviour
     private int waypointIndex = 0;
     [SerializeField]
     private float rotationSpeed = 6f;
+    public Player player;
 
     void Start() {
+        GameObject Player = GameObject.Find("Player");
+        player = Player.GetComponent<Player>();
         target = Waypoints.waypoints[0];
     }
     void Update() {
@@ -29,6 +32,11 @@ public class Enemy : MonoBehaviour
     private void GetNexWaypoint(){
         if(waypointIndex >= Waypoints.waypoints.Length - 1){
             WaveSpawner.numEnemiesAlive--;
+            player.ReducePlayerLives();
+            player.UpdatePlayerLivesText();
+            //Player.ReducePlayerLives();
+            //Player.UpdatePlayerLivesText();
+            //Debug.Log("Life Lost!");
             Destroy(gameObject);
             return;
         }
