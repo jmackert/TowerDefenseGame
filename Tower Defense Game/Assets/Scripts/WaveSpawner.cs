@@ -11,8 +11,12 @@ public class WaveSpawner : MonoBehaviour
     public static int numEnemiesAlive = 0;
     void Update()
     {
-        if(numEnemiesAlive == 0){
+        if(numEnemiesAlive == 0 && Player.currentLives > 0){
             StartCoroutine(SpawnWave());
+        }
+        if(Player.currentLives <= 0){
+            Debug.Log("You Lose Game Over!");
+            return;
         }
     }
 

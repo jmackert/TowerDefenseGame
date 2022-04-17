@@ -29,6 +29,8 @@ public class Enemy : MonoBehaviour
     private void GetNexWaypoint(){
         if(waypointIndex >= Waypoints.waypoints.Length - 1){
             WaveSpawner.numEnemiesAlive--;
+            Player.currentLives--;
+            Debug.Log("Life Lost!");
             Destroy(gameObject);
             return;
         }
