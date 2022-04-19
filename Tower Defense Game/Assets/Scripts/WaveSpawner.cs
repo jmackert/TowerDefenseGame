@@ -10,6 +10,7 @@ public class WaveSpawner : MonoBehaviour
     private int waveNumber = 1;
     public static int numEnemiesAlive = 0;
     public Player player;
+    
     void Update()
     {
         if(numEnemiesAlive == 0 && player.GetCurrentLives() > 0){
