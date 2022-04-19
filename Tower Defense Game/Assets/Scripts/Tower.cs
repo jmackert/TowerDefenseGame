@@ -6,9 +6,15 @@ public class Tower : MonoBehaviour
 {
     [SerializeField]
     private Transform target;
-    private float range = 2.5f;
     private string enemyTag = "Enemy";
-    private float attackSpeed = 1f;
+    [SerializeField]
+    private float range = 2.5f;
+    [SerializeField]
+    private float fireRate = 1f;
+    private float fireCountdown = 0f;
+    public GameObject projectilePrefab;
+    public Transform firePoint;
+
     private void UpdateTarget(){
         GameObject[] enemies = GameObject.FindGameObjectsWithTag(enemyTag);
         float shortestDistance = Mathf.Infinity;
@@ -31,6 +37,14 @@ public class Tower : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, range);
     }
+    private void Shoot(){
+        GameObject projectileGO = (GameObject)Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
+        Projectile projectile = projectileGO.GetComponent<Projectile>();
+
+        if(projectile != null){
+            projectile.Seek(target);
+        }
+    }
     void Start()
     {
         InvokeRepeating("UpdateTarget", 0f, 0.5f);
@@ -42,5 +56,10 @@ public class Tower : MonoBehaviour
         if(target == null){
             return;
         }
+        if(fireCountdown <= 0f){
+            Shoot();
+            fireCountdown = 1f / fireRate;
+        }
+        fireCountdown -= Time.deltaTime;
     }
 }
