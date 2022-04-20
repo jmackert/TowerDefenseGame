@@ -15570,6 +15570,10 @@ PrefabInstance:
       value: TempTower
       objectReference: {fileID: 0}
     - target: {fileID: 881886089747889421, guid: 2747ee87e8a7fe648b58ce9739741d71, type: 3}
+      propertyPath: range
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 881886089747889421, guid: 2747ee87e8a7fe648b58ce9739741d71, type: 3}
       propertyPath: firePoint
       value: 
       objectReference: {fileID: 1643432901}

@@ -3,7 +3,7 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     private Transform target;
-    private float speed = 70f;
+    private float speed = 25f;
 
     public void Seek(Transform _target){
         target = _target;
@@ -27,6 +27,7 @@ public class Projectile : MonoBehaviour
             HitTarget();
             return;
         }
+        transform.LookAt(target.position, direction);
         transform.Translate(direction.normalized * distanceThisFrame, Space.World);
     }
 }
