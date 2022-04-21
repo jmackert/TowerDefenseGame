@@ -34,9 +34,6 @@ public class Enemy : MonoBehaviour
             WaveSpawner.numEnemiesAlive--;
             player.ReducePlayerLives();
             player.UpdatePlayerLivesText();
-            //Player.ReducePlayerLives();
-            //Player.UpdatePlayerLivesText();
-            //Debug.Log("Life Lost!");
             Destroy(gameObject);
             return;
         }
