@@ -18,7 +18,7 @@ public class BuildManager : MonoBehaviour
     public GameObject GetTowerToBuild(){
         return towerToBuild;
     }
-    private void Start() {
-        towerToBuild = archerTower;
+    public void SetTowerToBuild(GameObject _towerToBuild){
+        towerToBuild = _towerToBuild;
     }
 }
