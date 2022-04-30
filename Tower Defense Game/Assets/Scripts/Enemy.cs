@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public class Enemy : MonoBehaviour
+public class Enemy : MonoBehaviour, IDamageable<float>
 {
     [SerializeField]
     protected float movementSpeed = 2.5f;
@@ -59,5 +59,6 @@ public class Enemy : MonoBehaviour
         Destroy(gameObject);
         player.IncreasePlayerGold(goldWorth);
         player.UpdatePlayerGoldText();
+        WaveSpawner.numEnemiesAlive--;
     }
 }
