@@ -1,20 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public class Enemy : MonoBehaviour
+public class Enemy : MonoBehaviour, IDamageable<float>
 {
     [SerializeField]
-    private float movementSpeed = 2.5f;
-    private Transform target;
-    private int waypointIndex = 0;
+    protected float movementSpeed = 2.5f;
     [SerializeField]
-    private float rotationSpeed = 6f;
-    public Player player;
+    protected float rotationSpeed = 6f;
+    [SerializeField]
+    protected float maxHp;
+    [SerializeField]
+    protected float currentHp;
+    [SerializeField]
+    protected int goldWorth;
+    [SerializeField]
+    protected string unitName;
+    protected int waypointIndex = 0;
+    protected Transform target;
+    protected Player player;
 
     void Start() {
         GameObject Player = GameObject.Find("Player");
         player = Player.GetComponent<Player>();
         target = Waypoints.waypoints[0];
+        currentHp = maxHp;
     }
     void Update() {
         Move();
@@ -39,5 +48,17 @@ public class Enemy : MonoBehaviour
         }
         waypointIndex++;
         target = Waypoints.waypoints[waypointIndex];
+    }
+    public void TakeDamage(float damageAmount){
+        currentHp -= damageAmount;
+        if(currentHp <= 0){
+            Die();
+        }
+    }
+    private void Die(){
+        Destroy(gameObject);
+        player.IncreasePlayerGold(goldWorth);
+        player.UpdatePlayerGoldText();
+        WaveSpawner.numEnemiesAlive--;
     }
 }

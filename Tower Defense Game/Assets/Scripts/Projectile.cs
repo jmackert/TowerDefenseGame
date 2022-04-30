@@ -13,6 +13,12 @@ public class Projectile : MonoBehaviour
         Destroy(target.gameObject);
         WaveSpawner.numEnemiesAlive--;
     }
+    private void DamageTarget(){
+        IDamageable<float> damageable = target.GetComponent<IDamageable<float>>();
+        if(damageable != null){
+            damageable.TakeDamage(50f);
+        }
+    }
 
     void Update(){
         if(target == null){
@@ -24,7 +30,8 @@ public class Projectile : MonoBehaviour
         float distanceThisFrame = speed * Time.deltaTime;
 
         if (direction.magnitude <= distanceThisFrame){
-            HitTarget();
+            //HitTarget();
+            DamageTarget();
             return;
         }
         transform.LookAt(target.position, direction);
