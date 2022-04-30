@@ -13,6 +13,9 @@ public class Projectile : MonoBehaviour
         Destroy(target.gameObject);
         WaveSpawner.numEnemiesAlive--;
     }
+    private void DamageTarget(Transform enemy){
+
+    }
 
     void Update(){
         if(target == null){

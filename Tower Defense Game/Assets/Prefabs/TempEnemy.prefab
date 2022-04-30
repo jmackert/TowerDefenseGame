@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6637257769104871002}
   - component: {fileID: 7760719563708006911}
   - component: {fileID: 5500982133351347509}
-  - component: {fileID: -1530188252855456931}
+  - component: {fileID: 4278703582591352814}
   m_Layer: 0
   m_Name: TempEnemy
   m_TagString: Enemy
@@ -82,7 +82,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &-1530188252855456931
+--- !u!114 &4278703582591352814
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -91,9 +91,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 6293664390050927840}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 600e61bfab2353146ab453b777932c38, type: 3}
+  m_Script: {fileID: 11500000, guid: 184bae48cc8babf4082833bc88f3699a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 2.5
   rotationSpeed: 6
-  player: {fileID: 0}
+  maxHp: 10
+  currentHp: 0
+  goldWorth: 5
+  unitName: Slime
