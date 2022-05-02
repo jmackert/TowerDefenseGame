@@ -7,7 +7,8 @@ public class Tile : MonoBehaviour
     public Color hoverColor;
     private Renderer rend;
     private Color startColor;
-    private GameObject tower;
+    [Header("Optional")]
+    public GameObject tower;
     private Vector3 offSet = new Vector3(0f,1.25f,0f);
 
     private void Start(){
@@ -15,11 +16,14 @@ public class Tile : MonoBehaviour
         startColor = rend.material.color;
         buildManager = BuildManager.instance;
     }
+    public Vector3 GetBuildPosition(){
+        return transform.position + offSet;
+    }
     private void OnMouseEnter() {
         if(EventSystem.current.IsPointerOverGameObject()){
             return;
         }
-        if(buildManager.GetTowerToBuild() == null){
+        if(!buildManager.CanBuild){
             return;
         }
         rend.material.color = hoverColor;
@@ -31,7 +35,7 @@ public class Tile : MonoBehaviour
         if(EventSystem.current.IsPointerOverGameObject()){
             return;
         }
-        if(buildManager.GetTowerToBuild() == null){
+        if(!buildManager.CanBuild){
             return;
         }
         if(tower != null)
@@ -39,7 +43,6 @@ public class Tile : MonoBehaviour
             Debug.Log("Can't Place Turret Here - TODO: Add to UI");
             return;
         }
-        GameObject towerToBuild = buildManager.GetTowerToBuild();
-        tower = (GameObject)Instantiate(towerToBuild, transform.position + offSet, Quaternion.identity);
+        buildManager.BuildTowerOn(this);
     }
 }

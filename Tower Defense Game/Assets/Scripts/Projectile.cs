@@ -8,11 +8,6 @@ public class Projectile : MonoBehaviour
     public void Seek(Transform _target){
         target = _target;
     }
-    private void HitTarget(){
-        Destroy(gameObject);
-        Destroy(target.gameObject);
-        WaveSpawner.numEnemiesAlive--;
-    }
     private void DamageTarget(){
         IDamageable<float> damageable = target.GetComponent<IDamageable<float>>();
         if(damageable != null){
@@ -30,7 +25,6 @@ public class Projectile : MonoBehaviour
         float distanceThisFrame = speed * Time.deltaTime;
 
         if (direction.magnitude <= distanceThisFrame){
-            //HitTarget();
             DamageTarget();
             return;
         }

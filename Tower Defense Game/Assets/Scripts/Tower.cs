@@ -2,16 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Tower : MonoBehaviour
+public class Tower : MonoBehaviour, IPurchasble
 {
     [SerializeField]
-    private Transform target;
-    private string enemyTag = "Enemy";
+    protected Transform target;
+    protected string enemyTag = "Enemy";
     [SerializeField]
-    private float range = 2.5f;
+    protected float range;
     [SerializeField]
-    private float fireRate = 1f;
-    private float fireCountdown = 0f;
+    protected float fireRate;
+    protected float fireCountdown;
+    protected int goldCost;
     public GameObject projectilePrefab;
     public Transform firePoint;
 
@@ -45,12 +46,13 @@ public class Tower : MonoBehaviour
             projectile.Seek(target);
         }
     }
+    public int GetTowerCost (){
+        return goldCost;
+    }
     void Start()
     {
-        InvokeRepeating("UpdateTarget", 0f, 0.5f);
+        InvokeRepeating("UpdateTarget", 0f, 0.25f);
     }
-
-    // Update is called once per frame
     void Update()
     {
         if(target == null){
