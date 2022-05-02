@@ -6,7 +6,7 @@ public class Shop : MonoBehaviour
     private void Start() {
         buildManager = BuildManager.instance;
     }
-    public void PurchaseArcherTower(){
+    public void SelectArcherTower(){
         Debug.Log("Archer Tower Selected");
         buildManager.SetTowerToBuild(buildManager.archerTower);
     }

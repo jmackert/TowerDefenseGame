@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IPurchasble
 {
-    float GetTowerCost();
+    int GetTowerCost();
 }

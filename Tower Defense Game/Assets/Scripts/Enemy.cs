@@ -42,7 +42,6 @@ public class Enemy : MonoBehaviour, IDamageable<float>
         if(waypointIndex >= Waypoints.waypoints.Length - 1){
             WaveSpawner.numEnemiesAlive--;
             player.ReducePlayerLives();
-            player.UpdatePlayerLivesText();
             Destroy(gameObject);
             return;
         }
@@ -58,7 +57,6 @@ public class Enemy : MonoBehaviour, IDamageable<float>
     private void Die(){
         Destroy(gameObject);
         player.IncreasePlayerGold(goldWorth);
-        player.UpdatePlayerGoldText();
         WaveSpawner.numEnemiesAlive--;
     }
 }

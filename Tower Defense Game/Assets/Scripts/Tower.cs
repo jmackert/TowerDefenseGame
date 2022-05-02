@@ -12,7 +12,7 @@ public class Tower : MonoBehaviour, IPurchasble
     [SerializeField]
     protected float fireRate;
     protected float fireCountdown;
-    protected float goldCost;
+    protected int goldCost;
     public GameObject projectilePrefab;
     public Transform firePoint;
 
@@ -46,7 +46,7 @@ public class Tower : MonoBehaviour, IPurchasble
             projectile.Seek(target);
         }
     }
-    public float GetTowerCost (){
+    public int GetTowerCost (){
         return goldCost;
     }
     void Start()

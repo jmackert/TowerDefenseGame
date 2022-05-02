@@ -22,10 +22,16 @@ public class Player : MonoBehaviour
 
     public void ReducePlayerLives(){
         currentLives--;
+        UpdatePlayerLivesText();
     }
 
     public void IncreasePlayerGold(int goldAmount){
         currentGold += goldAmount;
+        UpdatePlayerGoldText();
+    }
+    public void DecreasePlayerGold(int goldAmount){
+        currentGold-= goldAmount;
+        UpdatePlayerGoldText();
     }
 
     public void UpdatePlayerLivesText(){
@@ -37,5 +43,8 @@ public class Player : MonoBehaviour
     }
     public int GetCurrentLives(){
         return currentLives;
+    }
+    public int GetCurrentGold(){
+        return currentGold;
     }
 }

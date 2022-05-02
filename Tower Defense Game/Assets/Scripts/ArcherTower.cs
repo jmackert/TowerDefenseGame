@@ -8,7 +8,7 @@ public class ArcherTower : Tower
         this.range = 2.5f;
         this.fireRate = 1f;
         this.fireCountdown = 0f;
-        this.goldCost = 100f;
+        this.goldCost = 100;
         this.target = target;
     }
 }
