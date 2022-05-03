@@ -6,11 +6,13 @@ using TMPro;
 public class Player : MonoBehaviour
 {
     private int currentLives;
-    private int startingLives = 10;
+    private int startingLives = 1;
     private int startingGold = 500;
     private int currentGold;
+    private int roundsSurvived = -1;
     public TextMeshProUGUI currentLivesText;
     public TextMeshProUGUI currentGoldText;
+    public TextMeshProUGUI roundsSurvivedText;
 
 
     void Start(){
@@ -46,5 +48,11 @@ public class Player : MonoBehaviour
     }
     public int GetCurrentGold(){
         return currentGold;
+    }
+    public void IncreaseRoundsSurvived(){
+        roundsSurvived++;
+    }
+    public void UpdateRoundsSurvivedText(){
+        roundsSurvivedText.text = roundsSurvived.ToString();
     }
 }

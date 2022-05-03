@@ -25,6 +25,7 @@ public class WaveSpawner : MonoBehaviour
             yield return new WaitForSeconds(0.5f);
         }
         waveNumber++;
+        player.IncreaseRoundsSurvived();
     }
     private void SpawnEnemy(){
         numEnemiesAlive++;
