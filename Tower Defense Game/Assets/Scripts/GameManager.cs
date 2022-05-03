@@ -6,6 +6,8 @@ public class GameManager : MonoBehaviour
 {
     private bool isGameEnded = false;
     public Player player;
+    public GameObject gameUI;
+    public GameObject gameOverUI;
     void Update()
     {
         if(isGameEnded){
@@ -19,6 +21,8 @@ public class GameManager : MonoBehaviour
 
     private void EndGame(){
         isGameEnded = true;
-        return;
+        player.UpdateRoundsSurvivedText();
+        gameUI.SetActive(false);
+        gameOverUI.SetActive(true);
     }
 }
