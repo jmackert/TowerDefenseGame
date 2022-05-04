@@ -58,5 +58,6 @@ public class BuildManager : MonoBehaviour
         ISellable sellable = selectedTower.GetComponent<ISellable>();
         player.IncreasePlayerGold(sellable.GetTowerSellValue());
         Destroy(selectedTower);
+        HideTowerUI();
     }
 }
