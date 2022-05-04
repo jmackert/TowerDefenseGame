@@ -1987,6 +1987,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5cf5536740ea434a8e3cce86f7a25b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  selectedTower: {fileID: 0}
   towerUi: {fileID: 307889222}
   towerToBuild: {fileID: 0}
   archerTower: {fileID: 335769469010820040, guid: 2747ee87e8a7fe648b58ce9739741d71, type: 3}
@@ -4625,7 +4626,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 492644804}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 226847862}
+        m_TargetAssemblyTypeName: BuildManager, Assembly-CSharp
+        m_MethodName: SellTower
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &492644804
 MonoBehaviour:
   m_ObjectHideFlags: 0
