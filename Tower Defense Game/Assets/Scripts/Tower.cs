@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Tower : MonoBehaviour, IPurchasble
 {
+    BuildManager buildManager = BuildManager.instance;
     [SerializeField]
     protected Transform target;
     protected string enemyTag = "Enemy";
@@ -11,8 +12,12 @@ public class Tower : MonoBehaviour, IPurchasble
     protected float range;
     [SerializeField]
     protected float fireRate;
+    [SerializeField]
+    protected string towerName;
     protected float fireCountdown;
     protected int goldCost;
+    protected int upgradeCost;
+    protected int sellValue;
     public GameObject projectilePrefab;
     public Transform firePoint;
 
@@ -48,6 +53,21 @@ public class Tower : MonoBehaviour, IPurchasble
     }
     public int GetTowerCost (){
         return goldCost;
+    }
+    private void OnMouseDown() {
+        if(buildManager.towerToBuild != null){
+            Debug.Log("Can't Place Turret Here - TODO: Add to UI");
+            return;
+        }
+        if(buildManager.isTowerUIOpen == false){
+            buildManager.ShowTowerUI(towerName);
+            Debug.Log("This tower is selected!");
+        }
+        else if(buildManager.isTowerUIOpen == true){
+            buildManager.HideTowerUI();
+            Debug.Log("Deselected tower!");
+            return;
+        }
     }
     void Start()
     {

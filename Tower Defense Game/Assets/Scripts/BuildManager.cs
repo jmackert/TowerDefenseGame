@@ -1,4 +1,5 @@
  using UnityEngine;
+ using TMPro;
 
 public class BuildManager : MonoBehaviour
 {
@@ -11,10 +12,13 @@ public class BuildManager : MonoBehaviour
         }
         instance = this;
     }
-
-    private GameObject towerToBuild;
+    public GameObject towerUi;
+    public GameObject towerToBuild;
     public GameObject archerTower;
+    public bool isTowerUIOpen = false;
     public Player player;
+    public TextMeshProUGUI towerNameText;
+
 
     public bool CanBuild{get{return towerToBuild != null;}}
 
@@ -23,6 +27,9 @@ public class BuildManager : MonoBehaviour
     }
     public void SetTowerToBuild(GameObject _towerToBuild){
         towerToBuild = _towerToBuild;
+    }
+    public void DeselectTowerToBuild(){
+        towerToBuild = null;
     }
     public void BuildTowerOn(Tile tile){
         //GameObject tower = (GameObject)Instantiate(towerToBuild, tile.GetBuildPosition(), Quaternion.identity);
@@ -35,5 +42,17 @@ public class BuildManager : MonoBehaviour
         player.DecreasePlayerGold(purchasble.GetTowerCost());
         Instantiate(tower, tile.GetBuildPosition(), Quaternion.identity);
         tile.tower = tower;
+    }
+    public void ShowTowerUI(string towerName){
+        towerNameText.text = towerName;
+        towerUi.SetActive(true);
+        isTowerUIOpen = true;
+    }
+    public void HideTowerUI(){
+        towerUi.SetActive(false);
+        isTowerUIOpen = false;
+    }
+    public void SellTower(){
+        //player.IncreasePlayerGold();
     }
 }
