@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Tower : MonoBehaviour, IPurchasble
+public class Tower : MonoBehaviour, IPurchasble, ISellable
 {
     BuildManager buildManager = BuildManager.instance;
     [SerializeField]
@@ -54,13 +54,16 @@ public class Tower : MonoBehaviour, IPurchasble
     public int GetTowerCost (){
         return goldCost;
     }
+    public int GetTowerSellValue(){
+        return sellValue;
+    }
     private void OnMouseDown() {
         if(buildManager.towerToBuild != null){
             Debug.Log("Can't Place Turret Here - TODO: Add to UI");
             return;
         }
         if(buildManager.isTowerUIOpen == false){
-            buildManager.ShowTowerUI(towerName);
+            buildManager.ShowTowerUI(towerName, this.gameObject);
             Debug.Log("This tower is selected!");
         }
         else if(buildManager.isTowerUIOpen == true){

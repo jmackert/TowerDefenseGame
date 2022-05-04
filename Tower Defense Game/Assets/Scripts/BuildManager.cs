@@ -12,6 +12,7 @@ public class BuildManager : MonoBehaviour
         }
         instance = this;
     }
+    public GameObject selectedTower;
     public GameObject towerUi;
     public GameObject towerToBuild;
     public GameObject archerTower;
@@ -43,8 +44,9 @@ public class BuildManager : MonoBehaviour
         Instantiate(tower, tile.GetBuildPosition(), Quaternion.identity);
         tile.tower = tower;
     }
-    public void ShowTowerUI(string towerName){
+    public void ShowTowerUI(string towerName, GameObject _selectedTower){
         towerNameText.text = towerName;
+        selectedTower = _selectedTower;
         towerUi.SetActive(true);
         isTowerUIOpen = true;
     }
@@ -53,6 +55,8 @@ public class BuildManager : MonoBehaviour
         isTowerUIOpen = false;
     }
     public void SellTower(){
-        //player.IncreasePlayerGold();
+        ISellable sellable = selectedTower.GetComponent<ISellable>();
+        player.IncreasePlayerGold(sellable.GetTowerSellValue());
+        Destroy(selectedTower);
     }
 }
