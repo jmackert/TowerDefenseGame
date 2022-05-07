@@ -9,3 +9,12 @@ public interface IPurchasble{
 public interface ISellable{
     int GetTowerSellValue();
 }
+
+public interface IUpgradeable{
+    GameObject GetTowerOneUpgrade();
+    GameObject GetTowerTwoUpgrade();
+    GameObject GetTowerThreeUpgrade();
+    int GetUpgradeOneCost();
+    int GetUpgradeTwoCost();
+    int GetUpgradeThreeCost();
+}

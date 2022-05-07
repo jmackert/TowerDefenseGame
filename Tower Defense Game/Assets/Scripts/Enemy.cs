@@ -4,9 +4,9 @@ using UnityEngine;
 public class Enemy : MonoBehaviour, IDamageable<float>
 {
     [SerializeField]
-    protected float movementSpeed = 2.5f;
+    protected float movementSpeed;
     [SerializeField]
-    protected float rotationSpeed = 6f;
+    protected float rotationSpeed;
     [SerializeField]
     protected float maxHp;
     [SerializeField]
@@ -50,6 +50,7 @@ public class Enemy : MonoBehaviour, IDamageable<float>
     }
     public void TakeDamage(float damageAmount){
         currentHp -= damageAmount;
+        Debug.Log(damageAmount);
         if(currentHp <= 0){
             Die();
         }

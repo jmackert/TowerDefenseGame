@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Tower : MonoBehaviour, IPurchasble, ISellable
+public class Tower : MonoBehaviour, IPurchasble, ISellable, IUpgradeable
 {
     BuildManager buildManager = BuildManager.instance;
     [SerializeField]
@@ -16,8 +16,13 @@ public class Tower : MonoBehaviour, IPurchasble, ISellable
     protected string towerName;
     protected float fireCountdown;
     protected int goldCost;
-    protected int upgradeCost;
     protected int sellValue;
+    protected int upgradeOneCost;
+    protected int upgradeTwoCost;
+    protected int upgradeThreeCost;
+    public GameObject upgradeOne;
+    public GameObject upgradeTwo;
+    public GameObject upgradeThree;
     public GameObject projectilePrefab;
     public Transform firePoint;
 
@@ -63,7 +68,7 @@ public class Tower : MonoBehaviour, IPurchasble, ISellable
             return;
         }
         if(buildManager.isTowerUIOpen == false){
-            buildManager.ShowTowerUI(towerName, this.gameObject);
+            buildManager.ShowTowerUI(this.gameObject, towerName, upgradeOneCost, upgradeTwoCost, upgradeThreeCost);
             Debug.Log("This tower is selected!");
         }
         else if(buildManager.isTowerUIOpen == true){
@@ -72,11 +77,29 @@ public class Tower : MonoBehaviour, IPurchasble, ISellable
             return;
         }
     }
-    void Start()
+    public GameObject GetTowerOneUpgrade(){
+        return upgradeOne;
+    }
+    public GameObject GetTowerTwoUpgrade(){
+        return upgradeTwo;
+    }
+    public GameObject GetTowerThreeUpgrade(){
+        return upgradeThree;
+    }
+    public int GetUpgradeOneCost(){
+        return upgradeOneCost;
+    }
+    public int GetUpgradeTwoCost(){
+        return upgradeTwoCost;
+    }
+    public int GetUpgradeThreeCost(){
+        return upgradeThreeCost;
+    }
+    protected void Start()
     {
         InvokeRepeating("UpdateTarget", 0f, 0.25f);
     }
-    void Update()
+    protected void Update()
     {
         if(target == null){
             return;

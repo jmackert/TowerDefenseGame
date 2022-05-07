@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ArcherTower : Tower
+public class ArcherTower_1_0_0 : Tower
 {
-    public ArcherTower(){
+    public ArcherTower_1_0_0(){
         this.towerName = "Archer Tower";
         this.range = 2.5f;
         this.fireRate = 1f;
