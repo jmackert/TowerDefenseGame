@@ -39,11 +39,14 @@ public class BuildManager : MonoBehaviour
         IPurchasble purchasble = tower.GetComponent<IPurchasble>();
         if(player.GetCurrentGold() < purchasble.GetTowerCost()){
             Debug.Log("Not enough money to build that!");
+            towerToBuild = null;
             return;
         }
         player.DecreasePlayerGold(purchasble.GetTowerCost());
         Instantiate(tower, tile.GetBuildPosition(), Quaternion.identity);
         tile.tower = tower;
+        towerToBuild = null;
+        return;
     }
     public void ShowTowerUI(GameObject _selectedTower, string towerName, int upgradeOneCost, int upgradeTwoCost, int upgradeThreeCost){
         towerNameText.text = towerName;

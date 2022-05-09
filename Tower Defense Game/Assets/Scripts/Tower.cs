@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Tower : MonoBehaviour, IPurchasble, ISellable, IUpgradeable
 {
-    BuildManager buildManager = BuildManager.instance;
+    protected BuildManager buildManager = BuildManager.instance;
     [SerializeField]
     protected Transform target;
     protected string enemyTag = "Enemy";
@@ -69,12 +69,13 @@ public class Tower : MonoBehaviour, IPurchasble, ISellable, IUpgradeable
         }
         if(buildManager.isTowerUIOpen == false){
             buildManager.ShowTowerUI(this.gameObject, towerName, upgradeOneCost, upgradeTwoCost, upgradeThreeCost);
-            Debug.Log("This tower is selected!");
         }
-        else if(buildManager.isTowerUIOpen == true){
-            buildManager.HideTowerUI();
-            Debug.Log("Deselected tower!");
-            return;
+        else if(buildManager.isTowerUIOpen == true && buildManager.selectedTower != this.gameObject){
+                buildManager.ShowTowerUI(this.gameObject, towerName, upgradeOneCost, upgradeTwoCost, upgradeThreeCost);
+            }
+        else if(buildManager.isTowerUIOpen == true && buildManager.selectedTower == this.gameObject){
+                buildManager.HideTowerUI();
+                return;
         }
     }
     public GameObject GetTowerOneUpgrade(){
@@ -95,12 +96,9 @@ public class Tower : MonoBehaviour, IPurchasble, ISellable, IUpgradeable
     public int GetUpgradeThreeCost(){
         return upgradeThreeCost;
     }
-    protected void Start()
-    {
-        InvokeRepeating("UpdateTarget", 0f, 0.25f);
-    }
     protected void Update()
     {
+        UpdateTarget();
         if(target == null){
             return;
         }

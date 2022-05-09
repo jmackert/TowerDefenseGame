@@ -6,7 +6,7 @@ using TMPro;
 public class Player : MonoBehaviour
 {
     private int currentLives;
-    private int startingLives = 1;
+    private int startingLives = 100;
     private int startingGold = 500;
     private int currentGold;
     private int roundsSurvived = -1;
