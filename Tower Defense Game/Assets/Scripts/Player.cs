@@ -6,8 +6,8 @@ using TMPro;
 public class Player : MonoBehaviour
 {
     private int currentLives;
-    private int startingLives = 1;
-    private int startingGold = 500;
+    private int startingLives = 100;
+    private int startingGold = 1000;
     private int currentGold;
     private int roundsSurvived = -1;
     public TextMeshProUGUI currentLivesText;

@@ -7,7 +7,7 @@ public class Shop : MonoBehaviour
         buildManager = BuildManager.instance;
     }
     public void SelectArcherTower(){
-        Debug.Log("Archer Tower Selected");
-        buildManager.SetTowerToBuild(buildManager.archerTower);
+            Debug.Log("Archer Tower Selected");
+            buildManager.SetTowerToBuild(buildManager.archerTower);
     }
 }

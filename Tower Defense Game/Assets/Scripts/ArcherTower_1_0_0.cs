@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ArcherTower : Tower
+public class ArcherTower_1_0_0 : Tower
 {
-    public ArcherTower(){
-        this.towerName = "Archer Tower";
+    public ArcherTower_1_0_0(){
+        this.towerName = "Archer Tower 1_0_0";
         this.range = 2.5f;
         this.fireRate = 1f;
         this.fireCountdown = 0f;
@@ -14,5 +14,9 @@ public class ArcherTower : Tower
         this.upgradeTwoCost = 100;
         this.upgradeThreeCost = 100;
         this.sellValue = 50;
+    }
+
+    private void Start() {
+        buildManager.ShowTowerUI(this.gameObject, towerName, upgradeOneCost, upgradeTwoCost, upgradeThreeCost);
     }
 }

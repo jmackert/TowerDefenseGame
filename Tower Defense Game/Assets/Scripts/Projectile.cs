@@ -2,8 +2,9 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    private Transform target;
-    private float speed = 25f;
+    protected Transform target;
+    protected float speed;
+    protected float damageAmount;
 
     public void Seek(Transform _target){
         target = _target;
@@ -11,7 +12,7 @@ public class Projectile : MonoBehaviour
     private void DamageTarget(){
         IDamageable<float> damageable = target.GetComponent<IDamageable<float>>();
         if(damageable != null){
-            damageable.TakeDamage(50f);
+            damageable.TakeDamage(damageAmount);
         }
     }
 
@@ -26,6 +27,7 @@ public class Projectile : MonoBehaviour
 
         if (direction.magnitude <= distanceThisFrame){
             DamageTarget();
+            Destroy(gameObject);
             return;
         }
         transform.LookAt(target.position, direction);

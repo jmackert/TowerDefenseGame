@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Tower : MonoBehaviour, IPurchasble
+public class Tower : MonoBehaviour, IPurchasble, ISellable, IUpgradeable
 {
+    protected BuildManager buildManager = BuildManager.instance;
     [SerializeField]
     protected Transform target;
     protected string enemyTag = "Enemy";
@@ -11,8 +12,17 @@ public class Tower : MonoBehaviour, IPurchasble
     protected float range;
     [SerializeField]
     protected float fireRate;
+    [SerializeField]
+    protected string towerName;
     protected float fireCountdown;
     protected int goldCost;
+    protected int sellValue;
+    protected int upgradeOneCost;
+    protected int upgradeTwoCost;
+    protected int upgradeThreeCost;
+    public GameObject upgradeOne;
+    public GameObject upgradeTwo;
+    public GameObject upgradeThree;
     public GameObject projectilePrefab;
     public Transform firePoint;
 
@@ -49,12 +59,46 @@ public class Tower : MonoBehaviour, IPurchasble
     public int GetTowerCost (){
         return goldCost;
     }
-    void Start()
-    {
-        InvokeRepeating("UpdateTarget", 0f, 0.25f);
+    public int GetTowerSellValue(){
+        return sellValue;
     }
-    void Update()
+    private void OnMouseDown() {
+        if(buildManager.towerToBuild != null){
+            Debug.Log("Can't Place Turret Here - TODO: Add to UI");
+            return;
+        }
+        if(buildManager.isTowerUIOpen == false){
+            buildManager.ShowTowerUI(this.gameObject, towerName, upgradeOneCost, upgradeTwoCost, upgradeThreeCost);
+        }
+        else if(buildManager.isTowerUIOpen == true && buildManager.selectedTower != this.gameObject){
+                buildManager.ShowTowerUI(this.gameObject, towerName, upgradeOneCost, upgradeTwoCost, upgradeThreeCost);
+            }
+        else if(buildManager.isTowerUIOpen == true && buildManager.selectedTower == this.gameObject){
+                buildManager.HideTowerUI();
+                return;
+        }
+    }
+    public GameObject GetTowerOneUpgrade(){
+        return upgradeOne;
+    }
+    public GameObject GetTowerTwoUpgrade(){
+        return upgradeTwo;
+    }
+    public GameObject GetTowerThreeUpgrade(){
+        return upgradeThree;
+    }
+    public int GetUpgradeOneCost(){
+        return upgradeOneCost;
+    }
+    public int GetUpgradeTwoCost(){
+        return upgradeTwoCost;
+    }
+    public int GetUpgradeThreeCost(){
+        return upgradeThreeCost;
+    }
+    protected void Update()
     {
+        UpdateTarget();
         if(target == null){
             return;
         }

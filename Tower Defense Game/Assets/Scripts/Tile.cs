@@ -23,10 +23,9 @@ public class Tile : MonoBehaviour
         if(EventSystem.current.IsPointerOverGameObject()){
             return;
         }
-        if(!buildManager.CanBuild){
-            return;
+        if(buildManager.CanBuild){
+            rend.material.color = hoverColor;
         }
-        rend.material.color = hoverColor;
     }
     private void OnMouseExit() {
         rend.material.color = startColor;
@@ -35,14 +34,16 @@ public class Tile : MonoBehaviour
         if(EventSystem.current.IsPointerOverGameObject()){
             return;
         }
-        if(!buildManager.CanBuild){
+        if(buildManager.isTowerUIOpen == true){
+            buildManager.HideTowerUI();
             return;
         }
-        if(tower != null)
-        {
+        if(tower != null){
             Debug.Log("Can't Place Turret Here - TODO: Add to UI");
             return;
+        }       
+        if(buildManager.CanBuild){
+            buildManager.BuildTowerOn(this);;
         }
-        buildManager.BuildTowerOn(this);
     }
 }

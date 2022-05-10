@@ -26,7 +26,7 @@ public class CameraController : MonoBehaviour
     }
     private void Update() {
         HandleMouseInput();
-        HandleMovementInput();
+        HandleKeyBoardInput();
     }
     private void HandleMouseInput(){
         // Camera Zoom
@@ -69,7 +69,7 @@ public class CameraController : MonoBehaviour
         }
         transform.rotation = Quaternion.Lerp(transform.rotation, NewRotation, movementTime * Time.deltaTime);
     }
-    private void HandleMovementInput(){
+    private void HandleKeyBoardInput(){
         if(Input.GetKey(KeyCode.W)){
             newPosition += (transform.forward * panSpeed);
         }
