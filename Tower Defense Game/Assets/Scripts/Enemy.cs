@@ -15,6 +15,8 @@ public class Enemy : MonoBehaviour, IDamageable<float>
     protected int goldWorth;
     [SerializeField]
     protected string unitName;
+    [SerializeField]
+    protected int playerDamageAmount;
     protected int waypointIndex = 0;
     protected Transform target;
     protected Player player;
@@ -41,7 +43,7 @@ public class Enemy : MonoBehaviour, IDamageable<float>
     private void GetNexWaypoint(){
         if(waypointIndex >= Waypoints.waypoints.Length - 1){
             WaveSpawner.numEnemiesAlive--;
-            player.ReducePlayerLives();
+            player.ReducePlayerLives(playerDamageAmount);
             Destroy(gameObject);
             return;
         }
@@ -54,7 +56,7 @@ public class Enemy : MonoBehaviour, IDamageable<float>
             Die();
         }
     }
-    private void Die(){
+    protected virtual void Die(){
         Destroy(gameObject);
         player.IncreasePlayerGold(goldWorth);
         WaveSpawner.numEnemiesAlive--;

@@ -10,5 +10,6 @@ public class Slime : Enemy
         this.movementSpeed = 2.5f;
         this.rotationSpeed = 6f;
         this.goldWorth = 5;
+        this.playerDamageAmount = 1;
     }
 }
