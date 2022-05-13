@@ -1,15 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public class Enemy : MonoBehaviour, IDamageable<float>
+public class Enemy : MonoBehaviour, IDamageable<float>, ISpawnable<int,Transform>
 {
     [SerializeField]
     protected float movementSpeed;
     [SerializeField]
     protected float rotationSpeed;
-    [SerializeField]
+    //[SerializeField]
     protected float maxHp;
-    [SerializeField]
+    //[SerializeField]
     protected float currentHp;
     [SerializeField]
     protected int goldWorth;
@@ -17,7 +17,9 @@ public class Enemy : MonoBehaviour, IDamageable<float>
     protected string unitName;
     [SerializeField]
     protected int playerDamageAmount;
+    [SerializeField]
     protected int waypointIndex = 0;
+    [SerializeField]
     protected Transform target;
     protected Player player;
 
@@ -30,7 +32,7 @@ public class Enemy : MonoBehaviour, IDamageable<float>
     void Update() {
         Move();
         if (Vector3.Distance(transform.position, target.position) <= 0.2f){
-            GetNexWaypoint();
+            GetNextWaypoint();
         }
     }
     private void Move(){
@@ -40,7 +42,7 @@ public class Enemy : MonoBehaviour, IDamageable<float>
         transform.rotation = Quaternion.Euler(0f, rotation.y, 0f);
         transform.Translate(direction.normalized * movementSpeed * Time.deltaTime, Space.World); 
     }
-    private void GetNexWaypoint(){
+    private void GetNextWaypoint(){
         if(waypointIndex >= Waypoints.waypoints.Length - 1){
             WaveSpawner.numEnemiesAlive--;
             player.ReducePlayerLives(playerDamageAmount);
@@ -60,5 +62,13 @@ public class Enemy : MonoBehaviour, IDamageable<float>
         Destroy(gameObject);
         player.IncreasePlayerGold(goldWorth);
         WaveSpawner.numEnemiesAlive--;
+    }
+    public int GetWaypointIndex(){
+        return waypointIndex;
+    }
+    public void SetWaypointIndex(int newWaypointIndex, Transform newTarget){
+        waypointIndex = newWaypointIndex;
+        target = newTarget;
+        Move();
     }
 }

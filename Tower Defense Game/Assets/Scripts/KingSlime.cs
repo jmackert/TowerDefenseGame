@@ -6,9 +6,10 @@ public class KingSlime : Enemy
 {
     public GameObject enemyToSpawn;
     private int numEnemiesToSpawn = 5;
+    private Vector3 positionToSpawnEnemies;
 
     public KingSlime(){
-        this.maxHp = 50f;
+        this.maxHp = 5f;
         this.unitName = "King Slime";
         this.movementSpeed = 2f;
         this.rotationSpeed = 6f;
@@ -17,11 +18,18 @@ public class KingSlime : Enemy
     }
     protected override void Die()
     {
-        base.Die();
+        StartCoroutine(SpawnEnemies());   
+    }
+
+    IEnumerator SpawnEnemies(){
+        ISpawnable<int, Transform> spawnable = enemyToSpawn.GetComponent<ISpawnable<int, Transform>>();
         for (int i = 0; i < numEnemiesToSpawn; i++)
         {
-            Instantiate(enemyToSpawn,transform.position,Quaternion.identity);
             WaveSpawner.numEnemiesAlive++;
+            Instantiate(enemyToSpawn,transform.position,Quaternion.identity);
+            spawnable.SetWaypointIndex(waypointIndex, target);
+            yield return new WaitForSeconds(0.25f);
         }
+        base.Die();
     }
 }
