@@ -1943,7 +1943,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa45f2ddeca0520489bdaf5b0de9506a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyToSpawn: {fileID: 6293664390050927840, guid: 4f693875db831be44965be113b7afaec, type: 3}
+  enemyToSpawn: {fileID: 6293664390050927840, guid: 7cceb0a32c1ebe449a588cbfbd7bde9a, type: 3}
   enemySpawnPoint: {fileID: 8182167461049385160}
   player: {fileID: 1002941396}
 --- !u!4 &226847860

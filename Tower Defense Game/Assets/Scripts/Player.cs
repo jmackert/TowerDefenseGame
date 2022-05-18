@@ -22,8 +22,8 @@ public class Player : MonoBehaviour
         currentGoldText.text = "Gold: " + currentGold;
     }
 
-    public void ReducePlayerLives(){
-        currentLives--;
+    public void ReducePlayerLives(int damageAmount){
+        currentLives -= damageAmount;
         UpdatePlayerLivesText();
     }
 
