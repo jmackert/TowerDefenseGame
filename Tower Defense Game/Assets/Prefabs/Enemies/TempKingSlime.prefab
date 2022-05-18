@@ -96,9 +96,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementSpeed: 2
   rotationSpeed: 6
-  maxHp: 50
-  currentHp: 0
   goldWorth: 50
   unitName: King Slime
   playerDamageAmount: 6
+  waypointIndex: 0
+  target: {fileID: 0}
   enemyToSpawn: {fileID: 6293664390050927840, guid: 4f693875db831be44965be113b7afaec, type: 3}
+  meshRend: {fileID: 5500982133351347509}

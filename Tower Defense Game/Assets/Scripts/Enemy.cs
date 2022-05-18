@@ -26,10 +26,12 @@ public class Enemy : MonoBehaviour, IDamageable<float>, ISpawnable<int,Transform
     void Start() {
         GameObject Player = GameObject.Find("Player");
         player = Player.GetComponent<Player>();
-        target = Waypoints.waypoints[0];
         currentHp = maxHp;
     }
     void Update() {
+        if(target == null){
+            target = Waypoints.waypoints[0];
+        }
         Move();
         if (Vector3.Distance(transform.position, target.position) <= 0.2f){
             GetNextWaypoint();
