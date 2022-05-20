@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6637257769104871002}
   - component: {fileID: 7760719563708006911}
   - component: {fileID: 5500982133351347509}
-  - component: {fileID: 4278703582591352814}
+  - component: {fileID: -5888281125284221799}
   m_Layer: 0
   m_Name: TempSlime
   m_TagString: Enemy
@@ -26,8 +26,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6293664390050927840}
-  m_LocalRotation: {x: 0, y: 0.9998611, z: 0, w: 0.016668579}
-  m_LocalPosition: {x: 4.6421547, y: 1.0000196, z: -7.324322}
+  m_LocalRotation: {x: 0, y: 0.99990916, z: 0, w: -0.013480776}
+  m_LocalPosition: {x: 4.4001794, y: 1.0000037, z: -7.8271623}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -82,7 +82,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &4278703582591352814
+--- !u!114 &-5888281125284221799
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -91,7 +91,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6293664390050927840}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 184bae48cc8babf4082833bc88f3699a, type: 3}
+  m_Script: {fileID: 11500000, guid: 804c278de7722f34284345bdf0016989, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 2.5
@@ -99,5 +99,7 @@ MonoBehaviour:
   goldWorth: 5
   unitName: Slime
   playerDamageAmount: 1
-  waypointIndex: 4
+  waypointIndex: 0
   target: {fileID: 0}
+  enemyToSpawn: {fileID: 0}
+  meshRend: {fileID: 0}
