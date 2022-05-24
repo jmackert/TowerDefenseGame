@@ -6,6 +6,7 @@ public class KingSlime : Enemy
 {
     public GameObject enemyToSpawn;
     private int numEnemiesToSpawn = 5;
+    private int i = 0;
     private Vector3 positionToSpawnEnemies;
     public MeshRenderer meshRend;
 
@@ -26,11 +27,13 @@ public class KingSlime : Enemy
         ISpawnable<int, Transform> spawnable = enemyToSpawn.GetComponent<ISpawnable<int, Transform>>();
         movementSpeed = 0;
         meshRend.enabled = false;
-        for (int i = 0; i < numEnemiesToSpawn; i++)
+        while (i < numEnemiesToSpawn)
         {
-            WaveSpawner.numEnemiesAlive++;
             Instantiate(enemyToSpawn,transform.position,Quaternion.identity);
-            spawnable.SetWaypointIndex(waypointIndex, target);
+            //spawnable.SetWaypointIndex(waypointIndex, target);
+            WaveSpawner.numEnemiesAlive++;
+            Debug.Log("TEST: " + i);
+            i++;
             yield return new WaitForSeconds(0.15f);
         }
         base.Die();

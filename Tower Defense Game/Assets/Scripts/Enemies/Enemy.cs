@@ -27,11 +27,12 @@ public class Enemy : MonoBehaviour, IDamageable<float>, ISpawnable<int,Transform
         GameObject Player = GameObject.Find("Player");
         player = Player.GetComponent<Player>();
         currentHp = maxHp;
+        target = Waypoints.waypoints[0];
     }
     void Update() {
-        if(target == null){
-            target = Waypoints.waypoints[0];
-        }
+       // if(target == null){
+       //     target = Waypoints.waypoints[0];
+       // }
         Move();
         if (Vector3.Distance(transform.position, target.position) <= 0.2f){
             GetNextWaypoint();
@@ -71,6 +72,6 @@ public class Enemy : MonoBehaviour, IDamageable<float>, ISpawnable<int,Transform
     public void SetWaypointIndex(int newWaypointIndex, Transform newTarget){
         waypointIndex = newWaypointIndex;
         target = newTarget;
-        Move();
+        //Move();
     }
 }
