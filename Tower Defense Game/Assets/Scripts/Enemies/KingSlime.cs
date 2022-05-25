@@ -30,7 +30,7 @@ public class KingSlime : Enemy
         while (i < numEnemiesToSpawn)
         {
             Instantiate(enemyToSpawn,transform.position,Quaternion.identity);
-            //spawnable.SetWaypointIndex(waypointIndex, target);
+            spawnable.SetWaypointIndex(waypointIndex, target);
             WaveSpawner.numEnemiesAlive++;
             Debug.Log("TEST: " + i);
             i++;
