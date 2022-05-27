@@ -64,7 +64,7 @@ MonoBehaviour:
   fireRate: 1
   towerName: Archer Tower 1_0_0
   upgradeOne: {fileID: 335769469010820040, guid: bb7ac36bf4f6f864d990bdb96ff6d4b9, type: 3}
-  upgradeTwo: {fileID: 0}
+  upgradeTwo: {fileID: 335769469010820040, guid: 9ae9b8a74de7cdf4996cefbee2cbf92d, type: 3}
   upgradeThree: {fileID: 0}
   projectilePrefab: {fileID: 7785362346071700645, guid: 2f5ff4f55f19d9b4f835ec9cb691e03d, type: 3}
   firePoint: {fileID: 5607058244547110630}
