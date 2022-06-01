@@ -6,7 +6,11 @@ public class Tower : MonoBehaviour, IPurchasble, ISellable, IUpgradeable
 {
     protected BuildManager buildManager = BuildManager.instance;
     [SerializeField]
-    protected Transform target;
+    protected Transform target01;
+    [SerializeField]
+    protected Transform target02;
+    [SerializeField]
+    protected Transform target03;
     protected string enemyTag = "Enemy";
     [SerializeField]
     protected float range;
@@ -20,6 +24,7 @@ public class Tower : MonoBehaviour, IPurchasble, ISellable, IUpgradeable
     protected int upgradeOneCost;
     protected int upgradeTwoCost;
     protected int upgradeThreeCost;
+    protected int numTargets;
     public GameObject upgradeOne;
     public GameObject upgradeTwo;
     public GameObject upgradeThree;
@@ -39,9 +44,9 @@ public class Tower : MonoBehaviour, IPurchasble, ISellable, IUpgradeable
             }
         }
         if(nearestEnemy != null && shortestDistance <= range){
-            target = nearestEnemy.transform;
+            target01 = nearestEnemy.transform;
         }else{
-            target = null;
+            target01 = null;
         }
     }
     private void OnDrawGizmosSelected() {
@@ -53,7 +58,7 @@ public class Tower : MonoBehaviour, IPurchasble, ISellable, IUpgradeable
         Projectile projectile = projectileGO.GetComponent<Projectile>();
 
         if(projectile != null){
-            projectile.Seek(target);
+            projectile.Seek(target01);
         }
     }
     public int GetTowerCost (){
@@ -99,7 +104,7 @@ public class Tower : MonoBehaviour, IPurchasble, ISellable, IUpgradeable
     protected void Update()
     {
         UpdateTarget();
-        if(target == null){
+        if(target01 == null){
             return;
         }
         if(fireCountdown <= 0f){
