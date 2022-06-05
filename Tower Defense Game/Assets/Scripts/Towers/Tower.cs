@@ -20,6 +20,7 @@ public class Tower : MonoBehaviour, IPurchasble, ISellable, IUpgradeable
     protected int upgradeOneCost;
     protected int upgradeTwoCost;
     protected int upgradeThreeCost;
+    protected int numTargets;
     public GameObject upgradeOne;
     public GameObject upgradeTwo;
     public GameObject upgradeThree;

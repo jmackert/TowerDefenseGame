@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1702575846938779462}
   - component: {fileID: 4061907075945515672}
-  - component: {fileID: -3116768872275222647}
+  - component: {fileID: 4453362748187936957}
   m_Layer: 0
-  m_Name: TempTower 1-0-0
+  m_Name: TempTower 2-1-0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -47,7 +47,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &-3116768872275222647
+--- !u!114 &4453362748187936957
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -56,17 +56,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 335769469010820040}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd5070877e9ad1f48962fd92b927c768, type: 3}
+  m_Script: {fileID: 11500000, guid: 42652bcbd907ea948936f5eabbd8fc9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   range: 2.5
-  fireRate: 1
-  towerName: Archer Tower 1_0_0
-  upgradeOne: {fileID: 335769469010820040, guid: bb7ac36bf4f6f864d990bdb96ff6d4b9, type: 3}
-  upgradeTwo: {fileID: 335769469010820040, guid: 9ae9b8a74de7cdf4996cefbee2cbf92d, type: 3}
+  fireRate: 1.5
+  towerName: Archer Tower 2_1_0
+  upgradeOne: {fileID: 335769469010820040, guid: 7aab9f21d7b1edf479947619341c2de7, type: 3}
+  upgradeTwo: {fileID: 0}
   upgradeThree: {fileID: 0}
-  projectilePrefab: {fileID: 7785362346071700645, guid: 2f5ff4f55f19d9b4f835ec9cb691e03d, type: 3}
+  projectilePrefab: {fileID: 7785362346071700645, guid: ae43050ae9ca53e41a00db3e82811c9c, type: 3}
   firePoint: {fileID: 5607058244547110630}
 --- !u!1 &2992305128681760009
 GameObject:
@@ -128,7 +128,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 1977bbbfe9669294093dd2a9840338b7, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
