@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class KingSlime : Enemy
 {
-    public GameObject enemyToSpawn;
+    [SerializeField]private GameObject enemyToSpawn;
     private int numEnemiesToSpawn = 5;
     private int i = 0;
     private Vector3 positionToSpawnEnemies;
@@ -20,7 +20,12 @@ public class KingSlime : Enemy
     }
     protected override void Die()
     {
-        StartCoroutine(SpawnEnemies());   
+        if(enemyToSpawn != null){
+            StartCoroutine(SpawnEnemies());   
+        }
+        else{
+            base.Die();
+        }
     }
 
     IEnumerator SpawnEnemies(){
