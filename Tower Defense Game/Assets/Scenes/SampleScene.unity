@@ -1924,6 +1924,7 @@ GameObject:
   - component: {fileID: 226847859}
   - component: {fileID: 226847861}
   - component: {fileID: 226847862}
+  - component: {fileID: 226847863}
   m_Layer: 0
   m_Name: GameMaster
   m_TagString: Untagged
@@ -2000,6 +2001,20 @@ MonoBehaviour:
   pathOneUi: {fileID: 553563004}
   pathTwoUi: {fileID: 346183636}
   pathThreeUi: {fileID: 1229329892}
+--- !u!114 &226847863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 226847858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5fcde711445e1a4eb78da9653553ce6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pooledObject: {fileID: 7785362346071700645, guid: 973885670a791e147a3033f3c88eb6df, type: 3}
+  pooledAmount: 10
 --- !u!1 &227593868
 GameObject:
   m_ObjectHideFlags: 0

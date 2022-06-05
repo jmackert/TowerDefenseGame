@@ -15,10 +15,13 @@ public class Projectile : MonoBehaviour
             damageable.TakeDamage(damageAmount);
         }
     }
-
+    private void Disable(){
+        gameObject.SetActive(false);
+    }
     void Update(){
         if(target == null){
-            Destroy(gameObject);
+            //Destroy(gameObject);
+            Disable();
             return;
         }
 
@@ -27,7 +30,8 @@ public class Projectile : MonoBehaviour
 
         if (direction.magnitude <= distanceThisFrame){
             DamageTarget();
-            Destroy(gameObject);
+            //Destroy(gameObject);
+            Disable();
             return;
         }
         transform.LookAt(target.position, direction);

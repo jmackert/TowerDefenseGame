@@ -5,7 +5,7 @@ using UnityEngine;
 public class MinionSlime : KingSlime
 {
     public MinionSlime(){
-        this.maxHp = 100f;
+        this.maxHp = 10f;
         this.unitName = "Slime";
         this.movementSpeed = 2.5f;
         this.rotationSpeed = 6f;
@@ -18,5 +18,9 @@ public class MinionSlime : KingSlime
         player = Player.GetComponent<Player>();
         currentHp = maxHp;
         Debug.Log("NEW START");
+    }
+        protected override void Die()
+    {
+        base.Die();   
     }
 }
