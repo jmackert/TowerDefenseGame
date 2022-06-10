@@ -1924,7 +1924,6 @@ GameObject:
   - component: {fileID: 226847859}
   - component: {fileID: 226847861}
   - component: {fileID: 226847862}
-  - component: {fileID: 226847863}
   m_Layer: 0
   m_Name: GameMaster
   m_TagString: Untagged
@@ -2001,20 +2000,6 @@ MonoBehaviour:
   pathOneUi: {fileID: 553563004}
   pathTwoUi: {fileID: 346183636}
   pathThreeUi: {fileID: 1229329892}
---- !u!114 &226847863
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 226847858}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5fcde711445e1a4eb78da9653553ce6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pooledObject: {fileID: 7785362346071700645, guid: 973885670a791e147a3033f3c88eb6df, type: 3}
-  pooledAmount: 10
 --- !u!1 &227593868
 GameObject:
   m_ObjectHideFlags: 0
@@ -5150,6 +5135,49 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 506256040}
   m_CullTransparentMesh: 1
+--- !u!1 &517504983
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 517504985}
+  - component: {fileID: 517504984}
+  m_Layer: 0
+  m_Name: ProjectilePool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &517504984
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 517504983}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c68182b51988567418a2b0e0e8d6b349, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &517504985
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 517504983}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 6.994469, y: 0.42491913, z: -6.942301}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &522957342
 PrefabInstance:
   m_ObjectHideFlags: 0
