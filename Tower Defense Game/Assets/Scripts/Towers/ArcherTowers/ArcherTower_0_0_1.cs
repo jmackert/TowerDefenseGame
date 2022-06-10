@@ -5,7 +5,7 @@ using UnityEngine;
 public class ArcherTower_0_0_1 : Tower
 {
     public ArcherTower_0_0_1(){
-        this.towerName = "Archer Tower 1_0_0";
+        this.towerName = "Archer Tower 0_0_1";
         this.range = 3f;
         this.fireRate = 1f;
         this.fireCountdown = 0f;
@@ -14,9 +14,5 @@ public class ArcherTower_0_0_1 : Tower
         this.upgradeTwoCost = 100;
         this.upgradeThreeCost = 100;
         this.sellValue = 50;
-    }
-
-    private void Start() {
-        buildManager.ShowTowerUI(this.gameObject, towerName, upgradeOneCost, upgradeTwoCost, upgradeThreeCost);
     }
 }

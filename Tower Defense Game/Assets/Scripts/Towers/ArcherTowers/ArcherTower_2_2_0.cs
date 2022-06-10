@@ -15,8 +15,4 @@ public class ArcherTower_2_2_0 : Tower
         this.upgradeThreeCost = 100;
         this.sellValue = 50;
     }
-
-    private void Start() {
-        buildManager.ShowTowerUI(this.gameObject, towerName, upgradeOneCost, upgradeTwoCost, upgradeThreeCost);
-    }
 }

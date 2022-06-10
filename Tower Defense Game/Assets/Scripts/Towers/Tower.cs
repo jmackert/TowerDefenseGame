@@ -26,6 +26,12 @@ public class Tower : MonoBehaviour, IPurchasble, ISellable, IUpgradeable
     public GameObject upgradeThree;
     public GameObject projectilePrefab;
     public Transform firePoint;
+    private ProjectilePool projectilePool;
+
+    private void Start() {
+        projectilePool = FindObjectOfType<ProjectilePool>();
+        buildManager.ShowTowerUI(this.gameObject, towerName, upgradeOneCost, upgradeTwoCost, upgradeThreeCost);
+    }
 
     private void UpdateTarget(){
         GameObject[] enemies = GameObject.FindGameObjectsWithTag(enemyTag);
@@ -50,12 +56,20 @@ public class Tower : MonoBehaviour, IPurchasble, ISellable, IUpgradeable
         Gizmos.DrawWireSphere(transform.position, range);
     }
     private void Shoot(){
-        GameObject projectileGO = ArrowPool.current.GetPooledObject();
+
+        GameObject projectileGO = projectilePool.GetProjectile(projectilePrefab);
         Projectile projectile = projectileGO.GetComponent<Projectile>();
         projectile.GetComponent<Projectile>();
         projectileGO.transform.position = firePoint.position;
         projectileGO.transform.rotation = firePoint.rotation;
-        projectileGO.SetActive(true);
+        //projectileGO.SetActive(true);
+        
+        /*GameObject projectileGO = ArrowPool.current.GetPooledObject();
+        Projectile projectile = projectileGO.GetComponent<Projectile>();
+        projectile.GetComponent<Projectile>();
+        projectileGO.transform.position = firePoint.position;
+        projectileGO.transform.rotation = firePoint.rotation;
+        projectileGO.SetActive(true);*/
         //GameObject projectileGO = (GameObject)Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
         //Projectile projectile = projectileGO.GetComponent<Projectile>();
 
