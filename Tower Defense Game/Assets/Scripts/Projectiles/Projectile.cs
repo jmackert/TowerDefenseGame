@@ -20,7 +20,6 @@ public class Projectile : MonoBehaviour
     }
     void Update(){
         if(target == null){
-            //Destroy(gameObject);
             Disable();
             return;
         }
@@ -30,7 +29,6 @@ public class Projectile : MonoBehaviour
 
         if (direction.magnitude <= distanceThisFrame){
             DamageTarget();
-            //Destroy(gameObject);
             Disable();
             return;
         }

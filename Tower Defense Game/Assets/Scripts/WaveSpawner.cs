@@ -6,7 +6,6 @@ public class WaveSpawner : MonoBehaviour
 {
     public GameObject enemyToSpawn;
     public Transform enemySpawnPoint;
-    //private float timeBetweenWaves = 5f;
     private int waveNumber = 1;
     public static int numEnemiesAlive = 0;
     public Player player;

@@ -22,17 +22,16 @@ public class Enemy : MonoBehaviour, IDamageable<float>, ISpawnable<int,Transform
     [SerializeField]
     protected Transform target;
     protected Player player;
+    protected EnemyPool enemyPool;
 
     void Start() {
+        enemyPool = FindObjectOfType<EnemyPool>();
         GameObject Player = GameObject.Find("Player");
         player = Player.GetComponent<Player>();
         currentHp = maxHp;
         target = Waypoints.waypoints[0];
     }
     void Update() {
-       // if(target == null){
-       //     target = Waypoints.waypoints[0];
-       // }
         Move();
         if (Vector3.Distance(transform.position, target.position) <= 0.2f){
             GetNextWaypoint();
@@ -49,7 +48,7 @@ public class Enemy : MonoBehaviour, IDamageable<float>, ISpawnable<int,Transform
         if(waypointIndex >= Waypoints.waypoints.Length - 1){
             WaveSpawner.numEnemiesAlive--;
             player.ReducePlayerLives(playerDamageAmount);
-            Destroy(gameObject);
+            Disable();
             return;
         }
         waypointIndex++;
@@ -61,8 +60,11 @@ public class Enemy : MonoBehaviour, IDamageable<float>, ISpawnable<int,Transform
             Die();
         }
     }
+    private void Disable(){
+        gameObject.SetActive(false);
+    }
     protected virtual void Die(){
-        Destroy(gameObject);
+        Disable();
         player.IncreasePlayerGold(goldWorth);
         WaveSpawner.numEnemiesAlive--;
     }
@@ -72,6 +74,5 @@ public class Enemy : MonoBehaviour, IDamageable<float>, ISpawnable<int,Transform
     public void SetWaypointIndex(int newWaypointIndex, Transform newTarget){
         waypointIndex = newWaypointIndex;
         target = newTarget;
-        //Move();
     }
 }
