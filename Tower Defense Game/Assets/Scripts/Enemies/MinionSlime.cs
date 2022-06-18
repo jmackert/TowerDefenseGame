@@ -14,6 +14,7 @@ public class MinionSlime : KingSlime
     }
 
     private void Start() {
+        enemyPool = FindObjectOfType<EnemyPool>();
         GameObject Player = GameObject.Find("Player");
         player = Player.GetComponent<Player>();
         currentHp = maxHp;

@@ -62,16 +62,6 @@ public class Tower : MonoBehaviour, IPurchasble, ISellable, IUpgradeable
         projectile.GetComponent<Projectile>();
         projectileGO.transform.position = firePoint.position;
         projectileGO.transform.rotation = firePoint.rotation;
-        //projectileGO.SetActive(true);
-        
-        /*GameObject projectileGO = ArrowPool.current.GetPooledObject();
-        Projectile projectile = projectileGO.GetComponent<Projectile>();
-        projectile.GetComponent<Projectile>();
-        projectileGO.transform.position = firePoint.position;
-        projectileGO.transform.rotation = firePoint.rotation;
-        projectileGO.SetActive(true);*/
-        //GameObject projectileGO = (GameObject)Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
-        //Projectile projectile = projectileGO.GetComponent<Projectile>();
 
         if(projectile != null){
             projectile.Seek(target);

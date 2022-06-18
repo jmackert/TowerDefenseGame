@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7760719563708006911}
   - component: {fileID: 5500982133351347509}
   - component: {fileID: -5888281125284221799}
+  - component: {fileID: -3927815408890452823}
   m_Layer: 0
   m_Name: TempSlime
   m_TagString: Enemy
@@ -103,3 +104,15 @@ MonoBehaviour:
   target: {fileID: 0}
   enemyToSpawn: {fileID: 0}
   meshRend: {fileID: 0}
+--- !u!114 &-3927815408890452823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6293664390050927840}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd85133a8971cc74684b3356186d6f43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
