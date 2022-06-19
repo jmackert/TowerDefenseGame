@@ -2043,13 +2043,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6146da6c8fffdcc44805b95e681cfc71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waveInfoArray:
-  - enemyArray:
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-  - enemyArray: []
+  waveArray:
+  - waveInfoArray:
+    - enemyInfoArray:
+      - enemy: {fileID: 0}
+        timer: 0
+        numEnemies: 0
+      - enemy: {fileID: 0}
+        timer: 0
+        numEnemies: 0
+    - enemyInfoArray:
+      - enemy: {fileID: 0}
+        timer: 0
+        numEnemies: 0
+      - enemy: {fileID: 0}
+        timer: 0
+        numEnemies: 0
+      - enemy: {fileID: 0}
+        timer: 0
+        numEnemies: 0
   enemySpawnPoint: {fileID: 0}
   player: {fileID: 1002941396}
 --- !u!1 &227593868
