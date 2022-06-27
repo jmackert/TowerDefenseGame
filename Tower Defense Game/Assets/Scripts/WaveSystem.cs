@@ -5,51 +5,56 @@ using UnityEngine;
 public class WaveSystem : MonoBehaviour
 {
     [SerializeField] private Wave[] waveArray;
-    public Transform enemySpawnPoint;
+    //public Transform enemySpawnPoint;
     public Player player;
     public static int numEnemiesAlive = 0;
+    public int waveNumber = 1;
+    //private Wave wave;
 
-    /*private void Update() {
-        foreach (WaveInfo waveInfo in waveInfoArray)
-        {
-            waveInfo.SpawnWave();
-        }
-    }*/
+    private void Update() {
+            foreach (Wave wave in waveArray)
+            {
+                //if (numEnemiesAlive == 0 && player.GetCurrentLives() > 0){
+                    wave.SpawnWave();
+                //}
+            }
+    }
+
     [System.Serializable]
-    private class Wave{
+    public class Wave{
+        //private WaveSystem waveSystem;
+        public Transform enemySpawnPoint;
+        private WaveInfo waveInfo;
         [SerializeField] private WaveInfo[] waveInfoArray;
 
-        [System.Serializable]
-        private class WaveInfo{
-
-            [SerializeField] private EnemyInfo[] enemyInfoArray;
-            [System.Serializable]
-            private class EnemyInfo{
-
-                WaveSystem waveSystem;
-                //[SerializeField] private GameObject[] enemyArray;
-                [SerializeField] private GameObject enemy;
-                [SerializeField] private float timer;
-                [SerializeField] private int numEnemies;
-
-                public IEnumerator SpawnWave(){
-                for (int i = 0; i < numEnemies; i++)
+                public void SpawnWave(){
+                for (int i = 0; i < waveInfoArray.Length; i++)
                 {
-                    //SpawnEnemies();
-                    //Debug.Log("WAVE: " + i);
-                    yield return new WaitForSeconds(timer);
+                    SpawnEnemies();
+                    Debug.Log("WAVE: " + i);
                 }
-                //waveNumber++;
-                //player.IncreaseRoundsSurvived();
+                //waveSystem.waveNumber++;
+                //waveSystem.player.IncreaseRoundsSurvived();
             }
 
-                /*private void SpawnEnemies(){
-                    foreach (GameObject enemyToSpawn in enemyArray){
-                        numEnemiesAlive++;
-                        Instantiate(enemyToSpawn, waveSystem.enemySpawnPoint.position, waveSystem.enemySpawnPoint.rotation);
-                    } 
-                }*/
-            }
+                private void SpawnEnemies(){
+                    foreach (WaveInfo waveI in waveInfoArray)
+                    {
+                        for(int i = 0; i < waveI.numEnemiesToSpawn; i++){
+                            numEnemiesAlive++;
+                            Debug.Log("NUM ENEMIES ALIVE: " + numEnemiesAlive);
+                            Instantiate(waveI.enemyToSpawn, enemySpawnPoint.position, enemySpawnPoint.rotation);
+                            //yield return new WaitForSeconds(waveInfo.spawnInterval);
+                        } 
+                    }
+                }
+
+        [System.Serializable]
+        public class WaveInfo{
+                //[SerializeField] public GameObject[] enemyToSpawn;
+                [SerializeField] public GameObject enemyToSpawn;
+                [SerializeField] public float spawnInterval;
+                [SerializeField] public int numEnemiesToSpawn;
         }
     }
 }
