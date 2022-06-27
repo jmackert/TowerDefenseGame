@@ -1858,36 +1858,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 213279268}
   m_CullTransparentMesh: 1
---- !u!1 &217424551
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 217424552}
-  m_Layer: 0
-  m_Name: Wave
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &217424552
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 217424551}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.994469, y: 0.42491913, z: -6.942301}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 12
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &218352357
 GameObject:
   m_ObjectHideFlags: 0
@@ -1951,7 +1921,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 226847860}
-  - component: {fileID: 226847859}
   - component: {fileID: 226847861}
   - component: {fileID: 226847862}
   - component: {fileID: 226847863}
@@ -1962,21 +1931,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &226847859
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 226847858}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa45f2ddeca0520489bdaf5b0de9506a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyToSpawn: {fileID: 0}
-  enemySpawnPoint: {fileID: 8182167461049385160}
-  player: {fileID: 1002941396}
 --- !u!4 &226847860
 Transform:
   m_ObjectHideFlags: 0
@@ -2044,26 +1998,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waveArray:
-  - waveInfoArray:
-    - enemyInfoArray:
-      - enemy: {fileID: 0}
-        timer: 0
-        numEnemies: 0
-      - enemy: {fileID: 0}
-        timer: 0
-        numEnemies: 0
-    - enemyInfoArray:
-      - enemy: {fileID: 0}
-        timer: 0
-        numEnemies: 0
-      - enemy: {fileID: 0}
-        timer: 0
-        numEnemies: 0
-      - enemy: {fileID: 0}
-        timer: 0
-        numEnemies: 0
-  enemySpawnPoint: {fileID: 0}
+  - enemySpawnPoint: {fileID: 8182167461049385160}
+    waveInfoArray:
+    - enemyToSpawn: {fileID: 6293664390050927840, guid: 4f693875db831be44965be113b7afaec, type: 3}
+      spawnInterval: 1
+      numEnemiesToSpawn: 2
+  - enemySpawnPoint: {fileID: 8182167461049385160}
+    waveInfoArray:
+    - enemyToSpawn: {fileID: 6293664390050927840, guid: 4f693875db831be44965be113b7afaec, type: 3}
+      spawnInterval: 1
+      numEnemiesToSpawn: 2
+    - enemyToSpawn: {fileID: 6293664390050927840, guid: 7cceb0a32c1ebe449a588cbfbd7bde9a, type: 3}
+      spawnInterval: 5
+      numEnemiesToSpawn: 1
   player: {fileID: 1002941396}
+  waveNumber: 1
 --- !u!1 &227593868
 GameObject:
   m_ObjectHideFlags: 0
