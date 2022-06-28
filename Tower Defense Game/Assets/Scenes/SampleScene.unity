@@ -1998,19 +1998,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waveArray:
-  - enemySpawnPoint: {fileID: 8182167461049385160}
-    waveInfoArray:
-    - enemyToSpawn: {fileID: 6293664390050927840, guid: 4f693875db831be44965be113b7afaec, type: 3}
-      spawnInterval: 1
-      numEnemiesToSpawn: 2
-  - enemySpawnPoint: {fileID: 8182167461049385160}
-    waveInfoArray:
-    - enemyToSpawn: {fileID: 6293664390050927840, guid: 4f693875db831be44965be113b7afaec, type: 3}
-      spawnInterval: 1
-      numEnemiesToSpawn: 2
-    - enemyToSpawn: {fileID: 6293664390050927840, guid: 7cceb0a32c1ebe449a588cbfbd7bde9a, type: 3}
-      spawnInterval: 5
-      numEnemiesToSpawn: 1
+  - enemySpawnPoint: {fileID: 0}
+    waveInfoArray: []
+  - enemySpawnPoint: {fileID: 0}
+    waveInfoArray: []
+  wave:
+    enemySpawnPoint: {fileID: 0}
+    waveInfoArray: []
   player: {fileID: 1002941396}
   waveNumber: 1
 --- !u!1 &227593868
