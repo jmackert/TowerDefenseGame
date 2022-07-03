@@ -1921,9 +1921,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 226847860}
-  - component: {fileID: 226847859}
   - component: {fileID: 226847861}
   - component: {fileID: 226847862}
+  - component: {fileID: 226847863}
   m_Layer: 0
   m_Name: GameMaster
   m_TagString: Untagged
@@ -1931,21 +1931,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &226847859
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 226847858}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa45f2ddeca0520489bdaf5b0de9506a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyToSpawn: {fileID: 6293664390050927840, guid: 7cceb0a32c1ebe449a588cbfbd7bde9a, type: 3}
-  enemySpawnPoint: {fileID: 8182167461049385160}
-  player: {fileID: 1002941396}
 --- !u!4 &226847860
 Transform:
   m_ObjectHideFlags: 0
@@ -2000,6 +1985,28 @@ MonoBehaviour:
   pathOneUi: {fileID: 553563004}
   pathTwoUi: {fileID: 346183636}
   pathThreeUi: {fileID: 1229329892}
+--- !u!114 &226847863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 226847858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6146da6c8fffdcc44805b95e681cfc71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waveArray:
+  - enemySpawnPoint: {fileID: 0}
+    waveInfoArray: []
+  - enemySpawnPoint: {fileID: 0}
+    waveInfoArray: []
+  wave:
+    enemySpawnPoint: {fileID: 0}
+    waveInfoArray: []
+  player: {fileID: 1002941396}
+  waveNumber: 1
 --- !u!1 &227593868
 GameObject:
   m_ObjectHideFlags: 0
