@@ -46,7 +46,7 @@ public class Enemy : MonoBehaviour, IDamageable<float>, ISpawnable<int,Transform
     }
     private void GetNextWaypoint(){
         if(waypointIndex >= Waypoints.waypoints.Length - 1){
-            WaveSpawner.numEnemiesAlive--;
+            WaveSystem.numEnemiesAlive--;
             player.ReducePlayerLives(playerDamageAmount);
             Disable();
             return;
@@ -66,7 +66,7 @@ public class Enemy : MonoBehaviour, IDamageable<float>, ISpawnable<int,Transform
     protected virtual void Die(){
         Disable();
         player.IncreasePlayerGold(goldWorth);
-        WaveSpawner.numEnemiesAlive--;
+        WaveSystem.numEnemiesAlive--;
     }
     public int GetWaypointIndex(){
         return waypointIndex;
