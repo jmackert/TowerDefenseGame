@@ -4,79 +4,39 @@ using UnityEngine;
 
 public class WaveSystem : MonoBehaviour
 {
-    [SerializeField] private Wave[] waveArray;
-    public Wave wave;
-    //public Transform enemySpawnPoint;
+    //[SerializeField] private Wave[] waveArray;
+    public Wave[] waveArray;
+    public Transform enemySpawnPoint;
     public Player player;
     public static int numEnemiesAlive = 0;
-    public int waveNumber = 1;
-    private int waveIndex = 0;
+    public int waveNumber = 0;
 
     private void Update() {
-            /*foreach (Wave wave in waveArray)
-            {
-                //if (numEnemiesAlive == 0 && player.GetCurrentLives() > 0){
-                    //wave.SpawnWave();
-                    //wave.Update();
-                //}
-            }*/
 
-            Wave wave = waveArray[waveIndex];
-            for (int i = 0; i < waveArray.Length; i++)
-            {
-                wave.SpawnWaves();
+            if(numEnemiesAlive == 0 && player.GetCurrentLives() > 0){
+                StartCoroutine(SpawnWave());
             }
-            waveIndex++;
+
     }
 
-    // [System.Serializable]
-    // public class Wave{
-    //     //private WaveSystem waveSystem;
-    //     public Transform enemySpawnPoint;
-    //     //private WaveInfo waveInfo;
-    //     //private int arrayIndex = 0;
-    //     [SerializeField] private WaveInfo[] waveInfoArray;
+    IEnumerator SpawnWave(){
+        player.IncreaseRoundsSurvived();
 
-    //             public void SpawnWave(){
-    //             for (int i = 0; i < waveInfoArray.Length; i++)
-    //             {
-    //                 //SpawnEnemies();
-    //                 Debug.Log("WAVE: " + i);
-    //             }
-    //             //waveSystem.waveNumber++;
-    //             //waveSystem.player.IncreaseRoundsSurvived();
-    //         }
-    //             public void Update() {
-    //                 foreach (WaveInfo waveInfo in waveInfoArray)
-    //                 {
-    //                     if (waveInfo.spawnInterval >= 0)
-    //                     {
-    //                         waveInfo.spawnInterval -= Time.deltaTime;
-    //                         if (waveInfo.spawnInterval <= 0)
-    //                         {
-    //                             Instantiate(waveInfo.enemyToSpawn, enemySpawnPoint.position, enemySpawnPoint.rotation);
-    //                         }
-    //                     }
-    //                 }
-    //             }
-    //             /*private void SpawnEnemies(){
-    //                 foreach (WaveInfo waveInfo in waveInfoArray)
-    //                 {
-    //                     for(int i = 0; i < waveInfo.numEnemiesToSpawn; i++){
-    //                         numEnemiesAlive++;
-    //                         Debug.Log("NUM ENEMIES ALIVE: " + numEnemiesAlive);
-    //                         Instantiate(waveInfo.enemyToSpawn, enemySpawnPoint.position, enemySpawnPoint.rotation);
-    //                         //yield return new WaitForSeconds(waveInfo.spawnInterval);
-    //                     } 
-    //                 }
-    //             }*/
+        Wave wave = waveArray[waveNumber];
+        
+        for(int waveInfoArrayElement = 0; waveInfoArrayElement < waveArray.Length; waveInfoArrayElement++){
+            //SpawnWave(wave.enemyToSpawn);
+            //spawn enemy(enemytospawn)
+            //Debug.Log(wave.waveInfoArray[waveInfoArrayElement].enemyToSpawn);
+            SpawnEnemy(wave.waveInfoArray[waveInfoArrayElement].enemyToSpawn);
+            yield return new WaitForSeconds(1f / wave.waveInfoArray[waveInfoArrayElement].spawnInterval);
+        }
+        waveNumber++;
+    }
 
-    //     [System.Serializable]
-    //     public class WaveInfo{
-    //             //[SerializeField] public GameObject[] enemyToSpawn;
-    //             [SerializeField] public GameObject enemyToSpawn;
-    //             [SerializeField] public float spawnInterval;
-    //             [SerializeField] public int numEnemiesToSpawn;
-    //     }
-    // }
-}
+    private void SpawnEnemy(GameObject enemy){
+        Instantiate(enemy, enemySpawnPoint.position, enemySpawnPoint.rotation);
+    }
+
+
+}   
