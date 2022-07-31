@@ -4,12 +4,16 @@ using UnityEngine;
 
 public class WaveSystem : MonoBehaviour
 {
-    //[SerializeField] private Wave[] waveArray;
     public Wave[] waveArray;
     public Transform enemySpawnPoint;
     public Player player;
     public static int numEnemiesAlive = 0;
     private int waveNumber = 0;
+    protected EnemyPool enemyPool;
+
+    private void Start() {
+        enemyPool = FindObjectOfType<EnemyPool>();
+    }
 
     private void Update() {
 
@@ -27,7 +31,7 @@ public class WaveSystem : MonoBehaviour
             for (int i = 0; i < wave.waveInfoArray[waveInfoArrayElement].numEnemiesToSpawn; i++)
             {
                 SpawnEnemy(wave.waveInfoArray[waveInfoArrayElement].enemyToSpawn);
-                Debug.Log(numEnemiesAlive);
+                //Debug.Log(numEnemiesAlive);
                 yield return new WaitForSeconds(1f / wave.waveInfoArray[waveInfoArrayElement].spawnInterval);
             }
         }
@@ -35,7 +39,11 @@ public class WaveSystem : MonoBehaviour
     }
 
     private void SpawnEnemy(GameObject enemy){
-        Instantiate(enemy, enemySpawnPoint.position, enemySpawnPoint.rotation);
+        GameObject enemyGO = enemyPool.GetEnemy(enemy);
+        Enemy enemySpawning = enemyGO.GetComponent<Enemy>();
+        enemySpawning.GetComponent<Enemy>();
+        enemyGO.transform.position = enemySpawnPoint.position;
+        enemyGO.transform.rotation = enemySpawnPoint.rotation;
         numEnemiesAlive++;
     }
 }   

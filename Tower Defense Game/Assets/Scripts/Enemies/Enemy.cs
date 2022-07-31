@@ -7,9 +7,9 @@ public class Enemy : MonoBehaviour, IDamageable<float>, ISpawnable<int,Transform
     protected float movementSpeed;
     [SerializeField]
     protected float rotationSpeed;
-    //[SerializeField]
+    [SerializeField]
     protected float maxHp;
-    //[SerializeField]
+    [SerializeField]
     protected float currentHp;
     [SerializeField]
     protected int goldWorth;
@@ -61,6 +61,9 @@ public class Enemy : MonoBehaviour, IDamageable<float>, ISpawnable<int,Transform
         }
     }
     private void Disable(){
+        currentHp = maxHp;
+        waypointIndex = 0;
+        target = Waypoints.waypoints[waypointIndex];
         gameObject.SetActive(false);
     }
     protected virtual void Die(){

@@ -4,8 +4,6 @@ using UnityEngine;
 
     [System.Serializable]
     public class Wave{
-        //public Transform enemySpawnPoint;
-        //private WaveInfo waveInfo;
         [SerializeField] public WaveInfo[] waveInfoArray;
         
 
