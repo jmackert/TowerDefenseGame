@@ -5,10 +5,10 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     private bool isGameEnded = false;
-    public Player player;
-    public GameObject gameUI;
-    public GameObject gameOverUI;
-    public WaveSystem waveSystem;
+    [SerializeField]private Player player;
+    [SerializeField]private GameObject gameUI;
+    [SerializeField]private GameObject gameOverUI;
+    [SerializeField]private WaveSystem waveSystem;
     void Update()
     {
         if(isGameEnded){
