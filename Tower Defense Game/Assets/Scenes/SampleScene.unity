@@ -306,6 +306,71 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8222782601686573744, guid: 3d0c8f5311c956c42903c39b0b2702cd, type: 3}
   m_PrefabInstance: {fileID: 1469565}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &15727021
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 15727023}
+  - component: {fileID: 15727022}
+  m_Layer: 0
+  m_Name: WaveSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &15727022
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 15727021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6146da6c8fffdcc44805b95e681cfc71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waveArray:
+  - waveInfoArray:
+    - enemyToSpawn: {fileID: 6293664390050927840, guid: 414a80fae91bcf346b4256cdbf928bbf, type: 3}
+      spawnInterval: 1
+      numEnemiesToSpawn: 1
+  - waveInfoArray:
+    - enemyToSpawn: {fileID: 6293664390050927840, guid: 414a80fae91bcf346b4256cdbf928bbf, type: 3}
+      spawnInterval: 1
+      numEnemiesToSpawn: 2
+    - enemyToSpawn: {fileID: 6293664390050927840, guid: 7cceb0a32c1ebe449a588cbfbd7bde9a, type: 3}
+      spawnInterval: 1
+      numEnemiesToSpawn: 1
+  - waveInfoArray:
+    - enemyToSpawn: {fileID: 6293664390050927840, guid: 414a80fae91bcf346b4256cdbf928bbf, type: 3}
+      spawnInterval: 1
+      numEnemiesToSpawn: 3
+    - enemyToSpawn: {fileID: 6293664390050927840, guid: 7cceb0a32c1ebe449a588cbfbd7bde9a, type: 3}
+      spawnInterval: 1
+      numEnemiesToSpawn: 2
+  enemySpawnPoint: {fileID: 8182167461049385160}
+  player: {fileID: 1002941396}
+  waveNumber: 0
+--- !u!4 &15727023
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 15727021}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 6.2819915, y: -4.4952927, z: -5.0003586}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &28236150
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1923,7 +1988,6 @@ GameObject:
   - component: {fileID: 226847860}
   - component: {fileID: 226847861}
   - component: {fileID: 226847862}
-  - component: {fileID: 226847863}
   m_Layer: 0
   m_Name: GameMaster
   m_TagString: Untagged
@@ -1960,6 +2024,7 @@ MonoBehaviour:
   player: {fileID: 1002941396}
   gameUI: {fileID: 1165547357}
   gameOverUI: {fileID: 1352328741}
+  waveSystem: {fileID: 15727022}
 --- !u!114 &226847862
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1985,39 +2050,6 @@ MonoBehaviour:
   pathOneUi: {fileID: 553563004}
   pathTwoUi: {fileID: 346183636}
   pathThreeUi: {fileID: 1229329892}
---- !u!114 &226847863
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 226847858}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6146da6c8fffdcc44805b95e681cfc71, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  waveArray:
-  - waveInfoArray:
-    - enemyToSpawn: {fileID: 6293664390050927840, guid: 414a80fae91bcf346b4256cdbf928bbf, type: 3}
-      spawnInterval: 1
-      numEnemiesToSpawn: 1
-  - waveInfoArray:
-    - enemyToSpawn: {fileID: 6293664390050927840, guid: 414a80fae91bcf346b4256cdbf928bbf, type: 3}
-      spawnInterval: 1
-      numEnemiesToSpawn: 2
-    - enemyToSpawn: {fileID: 6293664390050927840, guid: 7cceb0a32c1ebe449a588cbfbd7bde9a, type: 3}
-      spawnInterval: 1
-      numEnemiesToSpawn: 1
-  - waveInfoArray:
-    - enemyToSpawn: {fileID: 6293664390050927840, guid: 414a80fae91bcf346b4256cdbf928bbf, type: 3}
-      spawnInterval: 1
-      numEnemiesToSpawn: 3
-    - enemyToSpawn: {fileID: 6293664390050927840, guid: 7cceb0a32c1ebe449a588cbfbd7bde9a, type: 3}
-      spawnInterval: 1
-      numEnemiesToSpawn: 2
-  enemySpawnPoint: {fileID: 8182167461049385160}
-  player: {fileID: 1002941396}
 --- !u!1 &227593868
 GameObject:
   m_ObjectHideFlags: 0
