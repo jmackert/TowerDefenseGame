@@ -6483,6 +6483,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PathWay (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 9098432301200601712, guid: 67f00b1c51d01044cbb67e7dd294e8ff, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 67f00b1c51d01044cbb67e7dd294e8ff, type: 3}
 --- !u!4 &603053806 stripped
@@ -10477,6 +10481,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1002941397}
   - component: {fileID: 1002941396}
+  - component: {fileID: 1002941398}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -10513,6 +10518,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1002941398
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1002941395}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e58d66a0aeb1dc40870d0b7164a4181, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerCamera: {fileID: 963194227}
 --- !u!1001 &1017742238
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19146,7 +19164,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1867670213}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1002941398}
+        m_TargetAssemblyTypeName: TowerPlacement, Assembly-CSharp
+        m_MethodName: SetTowerToPlace
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 335769469010820040, guid: 2747ee87e8a7fe648b58ce9739741d71, type: 3}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1867670213
 MonoBehaviour:
   m_ObjectHideFlags: 0
