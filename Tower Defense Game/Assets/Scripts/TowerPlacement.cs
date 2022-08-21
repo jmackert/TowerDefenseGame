@@ -5,44 +5,78 @@ using UnityEngine;
 public class TowerPlacement : MonoBehaviour
 {
     [SerializeField] private Camera playerCamera;
-    private GameObject CurrentPlacingTower;
-    //private Vector3 offSet = new Vector3(0f,1.25f,0f);
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] private LayerMask placementCollideMask;
+    [SerializeField] private LayerMask placementCheckMask;
+    private GameObject currentPlacingTower;
+    private Ray ray;
+    private RaycastHit hitInfo;
 
-    // Update is called once per frame
     void Update()
     {
-        if(CurrentPlacingTower != null)
+        if(currentPlacingTower != null)
         {
             MoveCurrentTowerToMouse();
+            PlaceCurrentTower();
+            DeselectCurrentTower();
             /*Ray camRay = playerCamera.ScreenPointToRay(Input.mousePosition);
             if(Physics.Raycast(camRay, out RaycastHit hitInfo, 100f) && hitInfo.transform.tag != "Tower")
             {
-                CurrentPlacingTower.transform.position = hitInfo.point;
+                currentPlacingTower.transform.position = hitInfo.point;
             }
             if(Input.GetMouseButtonDown(0))
             {
-                CurrentPlacingTower = null;
+                currentPlacingTower = null;
             }*/
         }
     }
 
     public void SetTowerToPlace(GameObject tower){
-        CurrentPlacingTower = Instantiate(tower, Vector3.zero, Quaternion.identity);
+        currentPlacingTower = Instantiate(tower, Vector3.zero, Quaternion.identity);
     }
 
     private void MoveCurrentTowerToMouse()
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-        RaycastHit hitInfo;
-        if(Physics.Raycast(ray, out hitInfo) && hitInfo.transform.tag == "PlaceableLand")
+        
+        if(Physics.Raycast(ray, out hitInfo, 100f, placementCollideMask) && hitInfo.transform.tag == "PlaceableLand")
         {
-            CurrentPlacingTower.transform.position = hitInfo.point;
+            currentPlacingTower.transform.position = hitInfo.point;
+        }
+    }
+
+    private void PlaceCurrentTower()
+    {
+        if(currentPlacingTower != null)
+        {
+            if(Input.GetMouseButtonDown(0) && hitInfo.collider.gameObject != null)
+            {
+                if(!hitInfo.collider.gameObject.CompareTag("CantPlace"))
+                {
+                    BoxCollider towerCollider = currentPlacingTower.gameObject.GetComponent<BoxCollider>();
+                    towerCollider.isTrigger = true;
+
+                    Vector3 boxCenter = currentPlacingTower.gameObject.transform.position + towerCollider.center;
+                    Vector3 halfExtents = towerCollider.size / 2;
+
+                    if(!Physics.CheckBox(boxCenter, halfExtents, Quaternion.identity, placementCheckMask, QueryTriggerInteraction.Ignore))
+                    {
+                        towerCollider.isTrigger = false;
+                        currentPlacingTower = null;
+                    }
+                }
+            }
+        }
+    }
+    
+    private void DeselectCurrentTower()
+    {
+        if(currentPlacingTower != null)
+        {
+            if(Input.GetMouseButtonDown(1))
+            {
+                Destroy(currentPlacingTower.gameObject);
+            }
         }
     }
 }

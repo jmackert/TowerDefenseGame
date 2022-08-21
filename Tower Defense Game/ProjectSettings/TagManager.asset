@@ -7,11 +7,12 @@ TagManager:
   - Enemy
   - Tower
   - PlaceableLand
+  - CantPlace
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Towers
   - Water
   - UI
   - 
