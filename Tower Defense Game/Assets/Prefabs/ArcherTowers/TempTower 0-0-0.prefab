@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1702575846938779462}
   - component: {fileID: -4181487218513064517}
-  - component: {fileID: 4061907075945515672}
+  - component: {fileID: 1684791606977261286}
   m_Layer: 3
   m_Name: TempTower 0-0-0
   m_TagString: Tower
@@ -54,7 +54,7 @@ MonoBehaviour:
   upgradeThree: {fileID: 335769469010820040, guid: 72db31bb471ff0144ba558ea7fa48688, type: 3}
   projectilePrefab: {fileID: 7785362346071700645, guid: 973885670a791e147a3033f3c88eb6df, type: 3}
   firePoint: {fileID: 5607058244547110630}
---- !u!65 &4061907075945515672
+--- !u!65 &1684791606977261286
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -65,8 +65,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.87465763, y: 1.4782788, z: 0.85616493}
-  m_Center: {x: 0.006787777, y: 0.7829096, z: -0.005582571}
+  m_Size: {x: 1, y: 1.5461401, z: 1}
+  m_Center: {x: 0, y: 0.79108316, z: 0}
 --- !u!1 &2992305128681760009
 GameObject:
   m_ObjectHideFlags: 0
