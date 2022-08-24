@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1684791606977261286}
   m_Layer: 3
   m_Name: TempTower 0-0-0
-  m_TagString: Tower
+  m_TagString: CantPlace
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -78,9 +78,9 @@ GameObject:
   - component: {fileID: 2992305128681760050}
   - component: {fileID: 2992305128681760013}
   - component: {fileID: 2992305128681760012}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Tower
-  m_TagString: Untagged
+  m_TagString: CantPlace
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -157,9 +157,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7266801947911664342}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: PivotPoint
-  m_TagString: Untagged
+  m_TagString: CantPlace
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -189,9 +189,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5607058244547110630}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: FirePoint
-  m_TagString: Untagged
+  m_TagString: CantPlace
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

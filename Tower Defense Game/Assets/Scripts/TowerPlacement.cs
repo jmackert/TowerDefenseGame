@@ -39,7 +39,8 @@ public class TowerPlacement : MonoBehaviour
         ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
         
-        if(Physics.Raycast(ray, out hitInfo, 100f, placementCollideMask) && hitInfo.transform.tag == "PlaceableLand")
+        //if(Physics.Raycast(ray, out hitInfo, 100f, placementCollideMask)) //&& hitInfo.transform.tag == "PlaceableLand")
+        if(Physics.Raycast(ray, out hitInfo, 100f, placementCheckMask)) //&& hitInfo.transform.tag == "PlaceableLand")
         {
             currentPlacingTower.transform.position = hitInfo.point;
         }
