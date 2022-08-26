@@ -8,62 +8,59 @@ public class TowerPlacement : MonoBehaviour
     [SerializeField] private LayerMask placementCollideMask;
     [SerializeField] private LayerMask placementCheckMask;
     private GameObject currentPlacingTower;
+    private GameObject currentTowerIndicator;
     private Ray ray;
     private RaycastHit hitInfo;
 
     void Update()
     {
         if(currentPlacingTower != null)
-        {
+        {  
             MoveCurrentTowerToMouse();
             PlaceCurrentTower();
             DeselectCurrentTower();
-            /*Ray camRay = playerCamera.ScreenPointToRay(Input.mousePosition);
-            if(Physics.Raycast(camRay, out RaycastHit hitInfo, 100f) && hitInfo.transform.tag != "Tower")
-            {
-                currentPlacingTower.transform.position = hitInfo.point;
-            }
-            if(Input.GetMouseButtonDown(0))
-            {
-                currentPlacingTower = null;
-            }*/
         }
     }
 
-    public void SetTowerToPlace(GameObject tower){
-        currentPlacingTower = Instantiate(tower, Vector3.zero, Quaternion.identity);
+    public void SetTowerToPlace(GameObject _tower){
+        currentPlacingTower = _tower;
+    }
+
+    public void SetTowerIndicator(GameObject _currentTowerIndicator){
+        currentTowerIndicator = Instantiate(_currentTowerIndicator, Vector3.zero, Quaternion.identity);
     }
 
     private void MoveCurrentTowerToMouse()
     {
         ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-        
-        //if(Physics.Raycast(ray, out hitInfo, 100f, placementCollideMask)) //&& hitInfo.transform.tag == "PlaceableLand")
-        if(Physics.Raycast(ray, out hitInfo, 100f, placementCheckMask)) //&& hitInfo.transform.tag == "PlaceableLand")
+        if(Physics.Raycast(ray, out hitInfo, 100f, placementCheckMask))
         {
-            currentPlacingTower.transform.position = hitInfo.point;
+            currentTowerIndicator.transform.position = hitInfo.point;
         }
     }
 
     private void PlaceCurrentTower()
     {
-        if(currentPlacingTower != null)
+        if(currentTowerIndicator != null)
         {
             if(Input.GetMouseButtonDown(0) && hitInfo.collider.gameObject != null)
             {
                 if(!hitInfo.collider.gameObject.CompareTag("CantPlace"))
                 {
-                    BoxCollider towerCollider = currentPlacingTower.gameObject.GetComponent<BoxCollider>();
+                    BoxCollider towerCollider = currentTowerIndicator.gameObject.GetComponent<BoxCollider>();
                     towerCollider.isTrigger = true;
 
-                    Vector3 boxCenter = currentPlacingTower.gameObject.transform.position + towerCollider.center;
+                    Vector3 boxCenter = currentTowerIndicator.gameObject.transform.position + towerCollider.center;
                     Vector3 halfExtents = towerCollider.size / 2;
 
                     if(!Physics.CheckBox(boxCenter, halfExtents, Quaternion.identity, placementCheckMask, QueryTriggerInteraction.Ignore))
                     {
                         towerCollider.isTrigger = false;
+                        currentPlacingTower.transform.position = hitInfo.point;
+                        Instantiate(currentPlacingTower,transform.position = hitInfo.point, Quaternion.identity);
                         currentPlacingTower = null;
+                        Destroy(currentTowerIndicator.gameObject);
+
                     }
                 }
             }
@@ -76,7 +73,9 @@ public class TowerPlacement : MonoBehaviour
         {
             if(Input.GetMouseButtonDown(1))
             {
-                Destroy(currentPlacingTower.gameObject);
+                Destroy(currentTowerIndicator.gameObject);
+                currentPlacingTower = null;
+                currentTowerIndicator = null;
             }
         }
     }
