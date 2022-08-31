@@ -7,7 +7,7 @@ public class Player : MonoBehaviour
 {
     private int currentLives;
     private int startingLives = 100;
-    private int startingGold = 1000;
+    private int startingGold = 10;
     private int currentGold;
     private int roundsSurvived = -1;
     public TextMeshProUGUI currentLivesText;

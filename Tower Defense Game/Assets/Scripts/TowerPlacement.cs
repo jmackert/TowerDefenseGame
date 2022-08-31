@@ -9,11 +9,17 @@ public class TowerPlacement : MonoBehaviour
     [SerializeField] private LayerMask placementCheckMask;
     [SerializeField] private Material validPlacementMaterial;
     [SerializeField] private Material invalidPlacementMaterial;
+    [SerializeField] private Player player;
     private GameObject currentPlacingTower;
     private GameObject currentTowerIndicator;
     private Ray ray;
     private RaycastHit hitInfo;
     private MeshRenderer towerMaterial;
+
+    BuildManager buildManager;
+    private void Start() {
+        buildManager = BuildManager.instance;
+    }
 
     void Update()
     {
@@ -31,6 +37,14 @@ public class TowerPlacement : MonoBehaviour
         if(currentPlacingTower != null)
         {
             currentPlacingTower = null;
+            return;
+        }
+
+        IPurchasble purchasble = _tower.GetComponent<IPurchasble>();
+        if(player.GetCurrentGold() < purchasble.GetTowerCost()){
+            Debug.Log("Not enough money to build that!");
+            currentPlacingTower = null;
+            return;
         }
         currentPlacingTower = _tower;
     }
@@ -41,6 +55,13 @@ public class TowerPlacement : MonoBehaviour
         {
             Destroy(currentTowerIndicator.gameObject);
             currentTowerIndicator = null;
+            return;
+        }
+
+        if(currentPlacingTower == null)
+        {
+            currentTowerIndicator = null;
+            return;
         }
         Vector3 pos = new Vector3 (100f,0f,0f);
         currentTowerIndicator = Instantiate(_currentTowerIndicator, pos, Quaternion.identity);
