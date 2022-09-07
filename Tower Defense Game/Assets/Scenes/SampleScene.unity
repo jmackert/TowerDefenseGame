@@ -2074,7 +2074,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1770240217}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Shop, Assembly-CSharp
         m_MethodName: SelectArcherTower
         m_Mode: 1
@@ -10911,6 +10911,7 @@ GameObject:
   - component: {fileID: 1002941397}
   - component: {fileID: 1002941396}
   - component: {fileID: 1002941398}
+  - component: {fileID: 1002941399}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -10969,6 +10970,25 @@ MonoBehaviour:
   validPlacementMaterial: {fileID: 2100000, guid: a621232d4811ebf409ef4967502a32ac, type: 2}
   invalidPlacementMaterial: {fileID: 2100000, guid: 56cb27b83a348c64c932325e68d67713, type: 2}
   player: {fileID: 1002941396}
+  newtowerToPlace:
+  - {fileID: 0}
+  newcurrentTowerIndicator:
+  - {fileID: 0}
+--- !u!114 &1002941399
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1002941395}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de36b6e4840161d4bb99e80571ae0d93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tower: {fileID: 335769469010820040, guid: 2747ee87e8a7fe648b58ce9739741d71, type: 3}
+  player: {fileID: 1002941396}
+  btn: {fileID: 1867670212}
 --- !u!1001 &1017742238
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18610,7 +18630,6 @@ GameObject:
   - component: {fileID: 1770240215}
   - component: {fileID: 1770240214}
   - component: {fileID: 1770240216}
-  - component: {fileID: 1770240217}
   m_Layer: 5
   m_Name: Shop
   m_TagString: Untagged
@@ -18705,18 +18724,6 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &1770240217
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1770240212}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de36b6e4840161d4bb99e80571ae0d93, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1776128341
 GameObject:
   m_ObjectHideFlags: 0
@@ -19979,6 +19986,7 @@ GameObject:
   - component: {fileID: 1867670214}
   - component: {fileID: 1867670213}
   - component: {fileID: 1867670212}
+  - component: {fileID: 1867670215}
   m_Layer: 5
   m_Name: Button (1)
   m_TagString: Untagged
@@ -20112,6 +20120,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1867670210}
   m_CullTransparentMesh: 1
+--- !u!114 &1867670215
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1867670210}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de36b6e4840161d4bb99e80571ae0d93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tower: {fileID: 335769469010820040, guid: 2747ee87e8a7fe648b58ce9739741d71, type: 3}
+  player: {fileID: 1002941396}
+  btn: {fileID: 1867670212}
 --- !u!1001 &1871422592
 PrefabInstance:
   m_ObjectHideFlags: 0

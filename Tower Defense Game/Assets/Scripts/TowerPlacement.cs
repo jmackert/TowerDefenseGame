@@ -10,19 +10,28 @@ public class TowerPlacement : MonoBehaviour
     [SerializeField] private Material validPlacementMaterial;
     [SerializeField] private Material invalidPlacementMaterial;
     [SerializeField] private Player player;
+    
     private GameObject currentPlacingTower;
     private GameObject currentTowerIndicator;
     private Ray ray;
     private RaycastHit hitInfo;
     private MeshRenderer towerMaterial;
+    private bool isTowerSelected = false;
+    private GameObject selectedTower;
+    private int layerTower;
 
     BuildManager buildManager;
     private void Start() {
         buildManager = BuildManager.instance;
+        layerTower = LayerMask.NameToLayer("Towers");
     }
 
-    void Update()
+    private void Update()
     {
+        if(isTowerSelected == false)
+        {
+            SelectTower();
+        }
         if(currentPlacingTower != null)
         {  
             MoveCurrentTowerToMouse();
@@ -36,13 +45,6 @@ public class TowerPlacement : MonoBehaviour
     {
         if(currentPlacingTower != null)
         {
-            currentPlacingTower = null;
-            return;
-        }
-
-        IPurchasble purchasble = _tower.GetComponent<IPurchasble>();
-        if(player.GetCurrentGold() < purchasble.GetTowerCost()){
-            Debug.Log("Not enough money to build that!");
             currentPlacingTower = null;
             return;
         }
@@ -77,6 +79,8 @@ public class TowerPlacement : MonoBehaviour
     }
     private void PlaceCurrentTower()
     {
+        GameObject tower = currentPlacingTower;
+        IPurchasble purchasble = tower.GetComponent<IPurchasble>();
         if(currentTowerIndicator != null)
         {
             if(Input.GetMouseButtonDown(0) && hitInfo.collider.gameObject != null)
@@ -96,6 +100,7 @@ public class TowerPlacement : MonoBehaviour
                         Instantiate(currentPlacingTower,transform.position = hitInfo.point, Quaternion.identity);
                         currentPlacingTower = null;
                         Destroy(currentTowerIndicator.gameObject);
+                        player.DecreasePlayerGold(purchasble.GetTowerCost());
 
                     }
                 }
@@ -133,6 +138,16 @@ public class TowerPlacement : MonoBehaviour
         {
             towerMaterial = currentTowerIndicator.gameObject.GetComponentInChildren<MeshRenderer>();
             towerMaterial.material = validPlacementMaterial;
+        }
+    }
+
+    private void SelectTower()
+    {
+        ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if(Input.GetMouseButtonDown(0) && Physics.Raycast(ray, out hitInfo, 100f, layerTower))
+        {
+            isTowerSelected = true;
+            Debug.Log("Tower Selected");
         }
     }
 }
