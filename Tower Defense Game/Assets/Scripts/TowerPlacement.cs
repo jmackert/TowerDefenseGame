@@ -1,3 +1,4 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -32,6 +33,11 @@ public class TowerPlacement : MonoBehaviour
         {
             SelectTower();
         }
+        if(isTowerSelected == true)
+        {
+            DeselectTower();
+        }
+        
         if(currentPlacingTower != null)
         {  
             MoveCurrentTowerToMouse();
@@ -144,10 +150,23 @@ public class TowerPlacement : MonoBehaviour
     private void SelectTower()
     {
         ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if(Input.GetMouseButtonDown(0) && Physics.Raycast(ray, out hitInfo, 100f, layerTower))
+        if(Input.GetMouseButtonDown(0) && Physics.Raycast(ray, out hitInfo, 100f, ~layerTower) && isTowerSelected == false)
         {
+            selectedTower = hitInfo.transform.gameObject;
             isTowerSelected = true;
-            Debug.Log("Tower Selected");
+            Debug.Log(selectedTower);
+        }
+        else return;
+    }
+
+    private void DeselectTower()
+    {
+        ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if(Input.GetMouseButtonDown(1) && Physics.Raycast(ray, out hitInfo, 100f, layerTower) && isTowerSelected == true)
+        {
+            selectedTower = null;
+            isTowerSelected = false;
+            Debug.Log("Tower Deselected");
         }
     }
 }
