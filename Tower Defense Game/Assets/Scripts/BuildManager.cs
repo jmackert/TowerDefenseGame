@@ -8,16 +8,16 @@ public class BuildManager : MonoBehaviour
 
     private void Awake() {
         if (instance != null){
-            Debug.LogError("More one BuildManager in scene!");
+            Debug.LogError("More than one BuildManager in scene!");
             return;
         }
         instance = this;
     }
     public GameObject selectedTower;
+    private GameObject upgradedTower;
+    private GameObject temp;
     public GameObject towerUi;
-    public GameObject towerToBuild;
-    public GameObject archerTower;
-    //public GameObject towerToUpgradeTo;
+    //public GameObject towerToBuild;
     public bool isTowerUIOpen = false;
     public Player player;
     public TextMeshProUGUI towerNameText;
@@ -27,31 +27,8 @@ public class BuildManager : MonoBehaviour
     public Button pathOneUi;
     public Button pathTwoUi;
     public Button pathThreeUi;
-    public bool CanBuild{get{return towerToBuild != null;}}
+    private Tower selectedTowerScript;
 
-    public GameObject GetTowerToBuild(){
-        return towerToBuild;
-    }
-    public void SetTowerToBuild(GameObject _towerToBuild){
-        towerToBuild = _towerToBuild;
-    }
-    public void DeselectTowerToBuild(){
-        towerToBuild = null;
-    }
-    public void BuildTowerOn(Tile tile){
-        GameObject tower = towerToBuild;
-        IPurchasble purchasble = tower.GetComponent<IPurchasble>();
-        if(player.GetCurrentGold() < purchasble.GetTowerCost()){
-            Debug.Log("Not enough money to build that!");
-            towerToBuild = null;
-            return;
-        }
-        player.DecreasePlayerGold(purchasble.GetTowerCost());
-        Instantiate(tower, tile.GetBuildPosition(), Quaternion.identity);
-        tile.tower = tower;
-        towerToBuild = null;
-        return;
-    }
     private void CheckUpgradePaths(){
         IUpgradeable upgradeable = selectedTower.GetComponent<IUpgradeable>();
         if(upgradeable.GetTowerOneUpgrade() == null){
@@ -82,11 +59,16 @@ public class BuildManager : MonoBehaviour
         towerUi.SetActive(false);
         selectedTower = null;
         isTowerUIOpen = false;
+        temp = null;
     }
     public void SellTower(){
         ISellable sellable = selectedTower.GetComponent<ISellable>();
         player.IncreasePlayerGold(sellable.GetTowerSellValue());
-        Destroy(selectedTower);
+        if(temp != null)
+        {
+            Destroy(temp);
+        }
+        else Destroy(selectedTower);
         HideTowerUI();
     }
     public void UpgradePathOne(){
@@ -96,8 +78,9 @@ public class BuildManager : MonoBehaviour
             return;
         }
         player.DecreasePlayerGold(upgradeable.GetUpgradeOneCost());
-        Instantiate(upgradeable.GetTowerOneUpgrade(), selectedTower.transform.position, Quaternion.identity);
-        Destroy(selectedTower);   
+        temp = Instantiate(upgradeable.GetTowerOneUpgrade(), selectedTower.transform.position, Quaternion.identity);
+        upgradedTower = upgradeable.GetTowerOneUpgrade();
+        DeleteOldTower();
     }
     public void UpgradePathTwo(){
         IUpgradeable upgradeable = selectedTower.GetComponent<IUpgradeable>();
@@ -106,8 +89,9 @@ public class BuildManager : MonoBehaviour
             return;
         }
         player.DecreasePlayerGold(upgradeable.GetUpgradeTwoCost());
-        Instantiate(upgradeable.GetTowerTwoUpgrade(), selectedTower.transform.position, Quaternion.identity);
-        Destroy(selectedTower); 
+        temp = Instantiate(upgradeable.GetTowerTwoUpgrade(), selectedTower.transform.position, Quaternion.identity);
+        upgradedTower = upgradeable.GetTowerTwoUpgrade();
+        DeleteOldTower();
     }
     public void UpgradePathThree(){
         IUpgradeable upgradeable = selectedTower.GetComponent<IUpgradeable>();
@@ -116,7 +100,15 @@ public class BuildManager : MonoBehaviour
             return;
         }
         player.DecreasePlayerGold(upgradeable.GetUpgradeThreeCost());
-        Instantiate(upgradeable.GetTowerThreeUpgrade(), selectedTower.transform.position, Quaternion.identity);
-        Destroy(selectedTower); 
+        temp = Instantiate(upgradeable.GetTowerThreeUpgrade(), selectedTower.transform.position, Quaternion.identity);
+        upgradedTower = upgradeable.GetTowerThreeUpgrade();
+        DeleteOldTower();
+    }
+    private void DeleteOldTower(){
+        Destroy(selectedTower);
+        selectedTower = upgradedTower;
+        upgradedTower = null;
+        selectedTowerScript = selectedTower.GetComponent<Tower>();
+        ShowTowerUI(selectedTower,selectedTowerScript.GetTowerName(),selectedTowerScript.GetUpgradeOneCost(), selectedTowerScript.GetUpgradeTwoCost(), selectedTowerScript.GetUpgradeThreeCost()); 
     }
 }

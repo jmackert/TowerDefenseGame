@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class TowerPlacement : MonoBehaviour
 {
@@ -17,9 +18,10 @@ public class TowerPlacement : MonoBehaviour
     private Ray ray;
     private RaycastHit hitInfo;
     private MeshRenderer towerMaterial;
-    private bool isTowerSelected = false;
+    //private bool isTowerSelected = false;
     private GameObject selectedTower;
     private int layerTower;
+    private Tower selectedTowerScript;
 
     BuildManager buildManager;
     private void Start() {
@@ -29,15 +31,14 @@ public class TowerPlacement : MonoBehaviour
 
     private void Update()
     {
-        if(isTowerSelected == false)
-        {
-            SelectTower();
-        }
-        if(isTowerSelected == true)
+        if(buildManager.isTowerUIOpen == true)
         {
             DeselectTower();
         }
-        
+        else if(buildManager.isTowerUIOpen == false)
+        {
+            SelectTower();
+        }
         if(currentPlacingTower != null)
         {  
             MoveCurrentTowerToMouse();
@@ -150,23 +151,25 @@ public class TowerPlacement : MonoBehaviour
     private void SelectTower()
     {
         ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if(Input.GetMouseButtonDown(0) && Physics.Raycast(ray, out hitInfo, 100f, ~layerTower) && isTowerSelected == false)
+        if(Input.GetMouseButtonDown(0) && Physics.Raycast(ray, out hitInfo, 100f, ~layerTower))
         {
             selectedTower = hitInfo.transform.gameObject;
-            isTowerSelected = true;
-            Debug.Log(selectedTower);
+            selectedTowerScript = selectedTower.GetComponent<Tower>();
+            buildManager.ShowTowerUI(selectedTower,selectedTowerScript.GetTowerName(),selectedTowerScript.GetUpgradeOneCost(), selectedTowerScript.GetUpgradeTwoCost(), selectedTowerScript.GetUpgradeThreeCost());
         }
         else return;
     }
 
     private void DeselectTower()
     {
-        ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if(Input.GetMouseButtonDown(1) && Physics.Raycast(ray, out hitInfo, 100f, layerTower) && isTowerSelected == true)
-        {
-            selectedTower = null;
-            isTowerSelected = false;
-            Debug.Log("Tower Deselected");
+        if(EventSystem.current.IsPointerOverGameObject()){
+            return;
         }
+        if(Input.GetMouseButtonDown(0))
+        {
+            buildManager.HideTowerUI();
+            Debug.Log("UI CLOSE");
+        }
+        else return;
     }
 }

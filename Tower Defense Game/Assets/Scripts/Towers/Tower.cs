@@ -30,7 +30,7 @@ public class Tower : MonoBehaviour, IPurchasble, ISellable, IUpgradeable
 
     private void Start() {
         projectilePool = FindObjectOfType<ProjectilePool>();
-        buildManager.ShowTowerUI(this.gameObject, towerName, upgradeOneCost, upgradeTwoCost, upgradeThreeCost);
+        //buildManager.ShowTowerUI(this.gameObject, towerName, upgradeOneCost, upgradeTwoCost, upgradeThreeCost);
     }
 
     private void UpdateTarget(){
@@ -73,13 +73,14 @@ public class Tower : MonoBehaviour, IPurchasble, ISellable, IUpgradeable
     public int GetTowerSellValue(){
         return sellValue;
     }
-    private void OnMouseDown() {
+    /*private void OnMouseDown() {
         if(buildManager.towerToBuild != null){
             Debug.Log("Can't Place Turret Here - TODO: Add to UI");
             return;
         }
         if(buildManager.isTowerUIOpen == false){
             buildManager.ShowTowerUI(this.gameObject, towerName, upgradeOneCost, upgradeTwoCost, upgradeThreeCost);
+            //Debug.Log("Tower UI Open!");
         }
         else if(buildManager.isTowerUIOpen == true && buildManager.selectedTower != this.gameObject){
                 buildManager.ShowTowerUI(this.gameObject, towerName, upgradeOneCost, upgradeTwoCost, upgradeThreeCost);
@@ -88,7 +89,7 @@ public class Tower : MonoBehaviour, IPurchasble, ISellable, IUpgradeable
                 buildManager.HideTowerUI();
                 return;
         }
-    }
+    }*/
     public GameObject GetTowerOneUpgrade(){
         return upgradeOne;
     }
@@ -106,6 +107,9 @@ public class Tower : MonoBehaviour, IPurchasble, ISellable, IUpgradeable
     }
     public int GetUpgradeThreeCost(){
         return upgradeThreeCost;
+    }
+    public string GetTowerName(){
+        return towerName;
     }
     protected void Update()
     {
