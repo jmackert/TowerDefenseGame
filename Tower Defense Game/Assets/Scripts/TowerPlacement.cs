@@ -31,14 +31,7 @@ public class TowerPlacement : MonoBehaviour
 
     private void Update()
     {
-        if(buildManager.isTowerUIOpen == true)
-        {
-            DeselectTower();
-        }
-        else if(buildManager.isTowerUIOpen == false)
-        {
-            SelectTower();
-        }
+        HandleTowerSelection();
         if(currentPlacingTower != null)
         {  
             MoveCurrentTowerToMouse();
@@ -148,28 +141,32 @@ public class TowerPlacement : MonoBehaviour
         }
     }
 
-    private void SelectTower()
+    private void HandleTowerSelection()
     {
         ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if(Input.GetMouseButtonDown(0) && Physics.Raycast(ray, out hitInfo, 100f, ~layerTower))
+        if(Input.GetMouseButtonDown(0) && Physics.Raycast(ray, out hitInfo, 100f, ~layerTower) && buildManager.isTowerUIOpen == false)
         {
             selectedTower = hitInfo.transform.gameObject;
             selectedTowerScript = selectedTower.GetComponent<Tower>();
             buildManager.ShowTowerUI(selectedTower,selectedTowerScript.GetTowerName(),selectedTowerScript.GetUpgradeOneCost(), selectedTowerScript.GetUpgradeTwoCost(), selectedTowerScript.GetUpgradeThreeCost());
         }
-        else return;
-    }
-
-    private void DeselectTower()
-    {
-        if(EventSystem.current.IsPointerOverGameObject()){
-            return;
-        }
-        if(Input.GetMouseButtonDown(0))
+        else if(Input.GetMouseButtonDown(0) && Physics.Raycast(ray, out hitInfo, 100f, ~layerTower) && hitInfo.transform.gameObject != selectedTower && buildManager.isTowerUIOpen == true)
         {
-            buildManager.HideTowerUI();
-            Debug.Log("UI CLOSE");
+            selectedTower = hitInfo.transform.gameObject;
+            selectedTowerScript = selectedTower.GetComponent<Tower>();
+            buildManager.ShowTowerUI(selectedTower,selectedTowerScript.GetTowerName(),selectedTowerScript.GetUpgradeOneCost(), selectedTowerScript.GetUpgradeTwoCost(), selectedTowerScript.GetUpgradeThreeCost());
         }
-        else return;
+        else if(buildManager.isTowerUIOpen == true)
+        {
+            if(EventSystem.current.IsPointerOverGameObject())
+            {
+            return;
+            }
+            if(Input.GetMouseButtonDown(0))
+            {
+                buildManager.HideTowerUI();
+                Debug.Log("UI CLOSE");
+            }
+        }
     }
 }
