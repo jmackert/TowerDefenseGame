@@ -18,7 +18,6 @@ public class TowerPlacement : MonoBehaviour
     private Ray ray;
     private RaycastHit hitInfo;
     private MeshRenderer towerMaterial;
-    //private bool isTowerSelected = false;
     private GameObject selectedTower;
     private int layerTower;
     private Tower selectedTowerScript;
@@ -32,6 +31,10 @@ public class TowerPlacement : MonoBehaviour
     private void Update()
     {
         HandleTowerSelection();
+        if(buildManager.GetUIState() == true)
+        {
+            buildManager.CheckUpgradePaths();
+        }
         if(currentPlacingTower != null)
         {  
             MoveCurrentTowerToMouse();
@@ -101,7 +104,6 @@ public class TowerPlacement : MonoBehaviour
                         currentPlacingTower = null;
                         Destroy(currentTowerIndicator.gameObject);
                         player.DecreasePlayerGold(purchasble.GetTowerCost());
-
                     }
                 }
             }
@@ -144,19 +146,19 @@ public class TowerPlacement : MonoBehaviour
     private void HandleTowerSelection()
     {
         ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if(Input.GetMouseButtonDown(0) && Physics.Raycast(ray, out hitInfo, 100f, ~layerTower) && buildManager.isTowerUIOpen == false)
+        if(Input.GetMouseButtonDown(0) && Physics.Raycast(ray, out hitInfo, 100f, ~layerTower) && buildManager.GetUIState()  == false)
         {
             selectedTower = hitInfo.transform.gameObject;
             selectedTowerScript = selectedTower.GetComponent<Tower>();
             buildManager.ShowTowerUI(selectedTower,selectedTowerScript.GetTowerName(),selectedTowerScript.GetUpgradeOneCost(), selectedTowerScript.GetUpgradeTwoCost(), selectedTowerScript.GetUpgradeThreeCost());
         }
-        else if(Input.GetMouseButtonDown(0) && Physics.Raycast(ray, out hitInfo, 100f, ~layerTower) && hitInfo.transform.gameObject != selectedTower && buildManager.isTowerUIOpen == true)
+        else if(Input.GetMouseButtonDown(0) && Physics.Raycast(ray, out hitInfo, 100f, ~layerTower) && hitInfo.transform.gameObject != selectedTower && buildManager.GetUIState()  == true)
         {
             selectedTower = hitInfo.transform.gameObject;
             selectedTowerScript = selectedTower.GetComponent<Tower>();
             buildManager.ShowTowerUI(selectedTower,selectedTowerScript.GetTowerName(),selectedTowerScript.GetUpgradeOneCost(), selectedTowerScript.GetUpgradeTwoCost(), selectedTowerScript.GetUpgradeThreeCost());
         }
-        else if(buildManager.isTowerUIOpen == true)
+        else if(buildManager.GetUIState()  == true)
         {
             if(EventSystem.current.IsPointerOverGameObject())
             {
@@ -165,7 +167,6 @@ public class TowerPlacement : MonoBehaviour
             if(Input.GetMouseButtonDown(0))
             {
                 buildManager.HideTowerUI();
-                Debug.Log("UI CLOSE");
             }
         }
     }

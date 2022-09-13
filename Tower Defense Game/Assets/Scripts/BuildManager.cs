@@ -13,33 +13,37 @@ public class BuildManager : MonoBehaviour
         }
         instance = this;
     }
-    public GameObject selectedTower;
+    [SerializeField] private GameObject selectedTower;
+    [SerializeField] private GameObject towerUi;
+    [SerializeField] private bool isTowerUIOpen = false;
+    [SerializeField] private Player player;
+    [SerializeField] private TextMeshProUGUI towerNameText;
+    [SerializeField] private TextMeshProUGUI upgradeOneCostText;
+    [SerializeField] private TextMeshProUGUI upgradeTwoCostText;
+    [SerializeField] private TextMeshProUGUI upgradeThreeCostText;
+    [SerializeField] private Button pathOneUi;
+    [SerializeField] private Button pathTwoUi;
+    [SerializeField] private Button pathThreeUi;
+    
     private GameObject upgradedTower;
     private GameObject temp;
-    public GameObject towerUi;
-    //public GameObject towerToBuild;
-    public bool isTowerUIOpen = false;
-    public Player player;
-    public TextMeshProUGUI towerNameText;
-    public TextMeshProUGUI upgradeOneCostText;
-    public TextMeshProUGUI upgradeTwoCostText;
-    public TextMeshProUGUI upgradeThreeCostText;
-    public Button pathOneUi;
-    public Button pathTwoUi;
-    public Button pathThreeUi;
     private Tower selectedTowerScript;
 
-    private void CheckUpgradePaths(){
+    public bool GetUIState(){
+        return isTowerUIOpen;
+    }
+
+    public void CheckUpgradePaths(){
         IUpgradeable upgradeable = selectedTower.GetComponent<IUpgradeable>();
-        if(upgradeable.GetTowerOneUpgrade() == null){
+        if(upgradeable.GetTowerOneUpgrade() == null || player.GetCurrentGold() < upgradeable.GetUpgradeOneCost()){
           pathOneUi.interactable = false;  
         }
         else pathOneUi.interactable = true; 
-        if(upgradeable.GetTowerOneUpgrade() == null){
+        if(upgradeable.GetTowerOneUpgrade() == null || player.GetCurrentGold() < upgradeable.GetUpgradeOneCost()){
             pathTwoUi.interactable = false;
         }
         else pathTwoUi.interactable = true;
-        if(upgradeable.GetTowerOneUpgrade() == null){
+        if(upgradeable.GetTowerOneUpgrade() == null || player.GetCurrentGold() < upgradeable.GetUpgradeOneCost()){
             pathThreeUi.interactable = false;
         } 
         else pathThreeUi.interactable = true;
@@ -73,10 +77,6 @@ public class BuildManager : MonoBehaviour
     }
     public void UpgradePathOne(){
         IUpgradeable upgradeable = selectedTower.GetComponent<IUpgradeable>();
-        if(player.GetCurrentGold() < upgradeable.GetUpgradeOneCost()){
-            Debug.Log("Not enough money for that upgrade");
-            return;
-        }
         player.DecreasePlayerGold(upgradeable.GetUpgradeOneCost());
         temp = Instantiate(upgradeable.GetTowerOneUpgrade(), selectedTower.transform.position, Quaternion.identity);
         upgradedTower = upgradeable.GetTowerOneUpgrade();
@@ -84,10 +84,6 @@ public class BuildManager : MonoBehaviour
     }
     public void UpgradePathTwo(){
         IUpgradeable upgradeable = selectedTower.GetComponent<IUpgradeable>();
-        if(player.GetCurrentGold() < upgradeable.GetUpgradeTwoCost()){
-            Debug.Log("Not enough money for that upgrade");
-            return;
-        }
         player.DecreasePlayerGold(upgradeable.GetUpgradeTwoCost());
         temp = Instantiate(upgradeable.GetTowerTwoUpgrade(), selectedTower.transform.position, Quaternion.identity);
         upgradedTower = upgradeable.GetTowerTwoUpgrade();
@@ -95,10 +91,6 @@ public class BuildManager : MonoBehaviour
     }
     public void UpgradePathThree(){
         IUpgradeable upgradeable = selectedTower.GetComponent<IUpgradeable>();
-        if(player.GetCurrentGold() < upgradeable.GetUpgradeThreeCost()){
-            Debug.Log("Not enough money for that upgrade");
-            return;
-        }
         player.DecreasePlayerGold(upgradeable.GetUpgradeThreeCost());
         temp = Instantiate(upgradeable.GetTowerThreeUpgrade(), selectedTower.transform.position, Quaternion.identity);
         upgradedTower = upgradeable.GetTowerThreeUpgrade();
