@@ -9,11 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1702575846938779462}
-  - component: {fileID: 4061907075945515672}
-  - component: {fileID: -3116768872275222647}
-  m_Layer: 0
-  m_Name: TempTower 1-0-0
-  m_TagString: Untagged
+  - component: {fileID: -4181487218513064517}
+  - component: {fileID: 1684791606977261286}
+  m_Layer: 3
+  m_Name: TempTower 0-0-0
+  m_TagString: CantPlace
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -26,15 +26,35 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 335769469010820040}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10, y: 1.25, z: -3}
+  m_LocalPosition: {x: 5.386202, y: 0.5, z: -6.831002}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 5607058244547110630}
-  - {fileID: 2992305128681760050}
+  - {fileID: 7266801947911664342}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &4061907075945515672
+--- !u!114 &-4181487218513064517
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 335769469010820040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04912beb994c6b548981c409f4e18492, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  range: 2.5
+  fireRate: 1
+  towerName: Archer Tower
+  upgradeOne: {fileID: 335769469010820040, guid: bdff2d1cd9492aa489d3d88e2befbd21, type: 3}
+  upgradeTwo: {fileID: 335769469010820040, guid: 9799ad651b323e045ab790e165b009dc, type: 3}
+  upgradeThree: {fileID: 335769469010820040, guid: 72db31bb471ff0144ba558ea7fa48688, type: 3}
+  projectilePrefab: {fileID: 7785362346071700645, guid: 973885670a791e147a3033f3c88eb6df, type: 3}
+  firePoint: {fileID: 5607058244547110630}
+--- !u!65 &1684791606977261286
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -45,29 +65,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &-3116768872275222647
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 335769469010820040}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd5070877e9ad1f48962fd92b927c768, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  range: 2.5
-  fireRate: 1
-  towerName: Archer Tower 1_0_0
-  upgradeOne: {fileID: 335769469010820040, guid: bb7ac36bf4f6f864d990bdb96ff6d4b9, type: 3}
-  upgradeTwo: {fileID: 335769469010820040, guid: 9ae9b8a74de7cdf4996cefbee2cbf92d, type: 3}
-  upgradeThree: {fileID: 0}
-  projectilePrefab: {fileID: 7785362346071700645, guid: 2f5ff4f55f19d9b4f835ec9cb691e03d, type: 3}
-  firePoint: {fileID: 5607058244547110630}
+  m_Size: {x: 1, y: 1.5461401, z: 1}
+  m_Center: {x: 0, y: 0.79108316, z: 0}
 --- !u!1 &2992305128681760009
 GameObject:
   m_ObjectHideFlags: 0
@@ -79,10 +78,9 @@ GameObject:
   - component: {fileID: 2992305128681760050}
   - component: {fileID: 2992305128681760013}
   - component: {fileID: 2992305128681760012}
-  - component: {fileID: 2992305128681760015}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Tower
-  m_TagString: Untagged
+  m_TagString: CantPlace
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -95,10 +93,10 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2992305128681760009}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.75, z: 0}
   m_LocalScale: {x: 0.75, y: 0.75, z: 0.75}
   m_Children: []
-  m_Father: {fileID: 1702575846938779462}
+  m_Father: {fileID: 7266801947911664342}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2992305128681760013
@@ -150,20 +148,38 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &2992305128681760015
-CapsuleCollider:
+--- !u!1 &4864038859557518241
+GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2992305128681760009}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7266801947911664342}
+  m_Layer: 3
+  m_Name: PivotPoint
+  m_TagString: CantPlace
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7266801947911664342
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4864038859557518241}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 5607058244547110630}
+  - {fileID: 2992305128681760050}
+  m_Father: {fileID: 1702575846938779462}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8532965802888664724
 GameObject:
   m_ObjectHideFlags: 0
@@ -173,9 +189,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5607058244547110630}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: FirePoint
-  m_TagString: Untagged
+  m_TagString: CantPlace
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -187,10 +203,10 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8532965802888664724}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.75, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1702575846938779462}
+  m_Father: {fileID: 7266801947911664342}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

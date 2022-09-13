@@ -6,13 +6,13 @@ using TMPro;
 public class Player : MonoBehaviour
 {
     private int currentLives;
-    private int startingLives = 5;
-    private int startingGold = 1000;
+    private int startingLives = 100;
+    private int startingGold = 199;
     private int currentGold;
     private int roundsSurvived = -1;
-    public TextMeshProUGUI currentLivesText;
-    public TextMeshProUGUI currentGoldText;
-    public TextMeshProUGUI roundsSurvivedText;
+    [SerializeField] private TextMeshProUGUI currentLivesText;
+    [SerializeField] private TextMeshProUGUI currentGoldText;
+    [SerializeField] private TextMeshProUGUI roundsSurvivedText;
 
 
     void Start(){

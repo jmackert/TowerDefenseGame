@@ -3,7 +3,7 @@ using UnityEngine.EventSystems;
 
 public class Tile : MonoBehaviour
 {
-    BuildManager buildManager;
+    /*BuildManager buildManager;
     public Color hoverColor;
     private Renderer rend;
     private Color startColor;
@@ -45,5 +45,5 @@ public class Tile : MonoBehaviour
         if(buildManager.CanBuild){
             buildManager.BuildTowerOn(this);;
         }
-    }
+    }*/
 }
