@@ -27,14 +27,17 @@ public class Tower : MonoBehaviour, IPurchasble, ISellable, IUpgradeable
     public GameObject projectilePrefab;
     public Transform firePoint;
     private ProjectilePool projectilePool;
+    [SerializeField] private List<GameObject> enemyList;
 
     private void Start() {
         projectilePool = FindObjectOfType<ProjectilePool>();
+        enemyList = new List<GameObject>();
         //buildManager.ShowTowerUI(this.gameObject, towerName, upgradeOneCost, upgradeTwoCost, upgradeThreeCost);
     }
 
     private void UpdateTarget(){
         GameObject[] enemies = GameObject.FindGameObjectsWithTag(enemyTag);
+
         float shortestDistance = Mathf.Infinity;
         GameObject nearestEnemy = null;
         foreach (GameObject enemy in enemies)
@@ -54,6 +57,14 @@ public class Tower : MonoBehaviour, IPurchasble, ISellable, IUpgradeable
     private void OnDrawGizmosSelected() {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, range);
+    }
+
+    private void OnCollisionEnter(Collision other) {
+        if(other.gameObject.tag == enemyTag)
+        {
+            Debug.Log("Entered");
+            enemyList.Add(other.gameObject);
+        }
     }
     private void Shoot(){
 

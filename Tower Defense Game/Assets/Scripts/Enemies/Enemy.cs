@@ -3,42 +3,40 @@ using System.Collections.Generic;
 using UnityEngine;
 public class Enemy : MonoBehaviour, IDamageable<float>, ISpawnable<int,Transform>
 {
-    [SerializeField]
-    protected float movementSpeed;
-    [SerializeField]
-    protected float rotationSpeed;
-    [SerializeField]
-    protected float maxHp;
-    [SerializeField]
-    protected float currentHp;
-    [SerializeField]
-    protected int goldWorth;
-    [SerializeField]
-    protected string unitName;
-    [SerializeField]
-    protected int playerDamageAmount;
-    [SerializeField]
-    protected int waypointIndex = 0;
-    [SerializeField]
-    protected Transform target;
+    [SerializeField]protected float movementSpeed;
+    [SerializeField]protected float rotationSpeed;
+    [SerializeField]protected float maxHp;
+    [SerializeField]protected float currentHp;
+    [SerializeField]protected int goldWorth;
+    [SerializeField]protected string unitName;
+    [SerializeField]protected int playerDamageAmount;
+    [SerializeField]protected int waypointIndex = 0;
+    
+    [SerializeField]protected Transform previousWaypoint; // continue here
+    [SerializeField]protected Transform targetWaypoint;
     protected Player player;
     protected EnemyPool enemyPool;
 
-    void Start() {
+    private void Start() {
         enemyPool = FindObjectOfType<EnemyPool>();
         GameObject Player = GameObject.Find("Player");
         player = Player.GetComponent<Player>();
         currentHp = maxHp;
-        target = Waypoints.waypoints[0];
+        targetWaypoint = Waypoints.waypoints[0];
+        previousWaypoint = null;
+
     }
-    void Update() {
+    private void Update() {
         Move();
-        if (Vector3.Distance(transform.position, target.position) <= 0.2f){
+        //GetDistanceTraveled();
+        if (Vector3.Distance(transform.position, targetWaypoint.position) <= 0.2f){
             GetNextWaypoint();
+            GetPreviousWaypoint();
         }
+        GetDistanceTraveled();
     }
     private void Move(){
-        Vector3 direction = target.position - transform.position;
+        Vector3 direction = targetWaypoint.position - transform.position;
         Quaternion lookRotation = Quaternion.LookRotation(direction);
         Vector3 rotation = Quaternion.Lerp(transform.rotation, lookRotation, Time.deltaTime * rotationSpeed).eulerAngles;
         transform.rotation = Quaternion.Euler(0f, rotation.y, 0f);
@@ -52,7 +50,11 @@ public class Enemy : MonoBehaviour, IDamageable<float>, ISpawnable<int,Transform
             return;
         }
         waypointIndex++;
-        target = Waypoints.waypoints[waypointIndex];
+        targetWaypoint = Waypoints.waypoints[waypointIndex];
+    }
+
+    private void GetPreviousWaypoint(){
+        previousWaypoint = Waypoints.waypoints[waypointIndex - 1];
     }
     public void TakeDamage(float damageAmount){
         currentHp -= damageAmount;
@@ -63,7 +65,7 @@ public class Enemy : MonoBehaviour, IDamageable<float>, ISpawnable<int,Transform
     private void Disable(){
         currentHp = maxHp;
         waypointIndex = 0;
-        target = Waypoints.waypoints[waypointIndex];
+        targetWaypoint = Waypoints.waypoints[waypointIndex];
         gameObject.SetActive(false);
     }
     protected virtual void Die(){
@@ -74,8 +76,18 @@ public class Enemy : MonoBehaviour, IDamageable<float>, ISpawnable<int,Transform
     public int GetWaypointIndex(){
         return waypointIndex;
     }
-    public void SetWaypointIndex(int newWaypointIndex, Transform newTarget){
+    public void SetWaypointIndex(int newWaypointIndex, Transform newTargetWaypoint){
         waypointIndex = newWaypointIndex;
-        target = newTarget;
+        targetWaypoint = newTargetWaypoint;
+    }
+
+    private void GetDistanceTraveled()
+    {
+        float distanceFromPreviousWaypoint = Vector3.Distance(transform.position, previousWaypoint.transform.position);
+        float distanceBetweenWaypoints = Vector3.Distance(previousWaypoint.transform.position, targetWaypoint.transform.position);
+        float distanceTraveled = (distanceFromPreviousWaypoint / distanceBetweenWaypoints) * 100;
+        //Debug.Log("Distance Between Waypoints: " + distanceBetweenWaypoints);
+        //Debug.Log("Distance Traveled: " + distanceTraveled);
+
     }
 }
