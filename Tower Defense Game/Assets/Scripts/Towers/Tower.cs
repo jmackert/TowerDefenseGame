@@ -27,7 +27,7 @@ public class Tower : MonoBehaviour, IPurchasble, ISellable, IUpgradeable
     public GameObject projectilePrefab;
     public Transform firePoint;
     private ProjectilePool projectilePool;
-    [SerializeField] private List<GameObject> enemyList;
+    [SerializeField] public List<GameObject> enemyList;
 
     private void Start() {
         projectilePool = FindObjectOfType<ProjectilePool>();
@@ -59,11 +59,30 @@ public class Tower : MonoBehaviour, IPurchasble, ISellable, IUpgradeable
         Gizmos.DrawWireSphere(transform.position, range);
     }
 
-    private void OnCollisionEnter(Collision other) {
-        if(other.gameObject.tag == enemyTag)
+    /*private void GetEnemyList(){
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, range);
+        foreach(Collider col in hitColliders){
+            if(enemyList.Contains(col.gameObject)){
+                return;
+            }
+            if(col.transform.tag == "Enemy"){
+                enemyList.Add(col.gameObject);
+            }
+        }
+        
+    }*/
+    private void OnCollisionEnter(Collision collisionInfo) {
+        if(collisionInfo.collider.tag == "Enemy")
         {
             Debug.Log("Entered");
-            enemyList.Add(other.gameObject);
+            enemyList.Add(collisionInfo.gameObject);
+        }
+    }
+    private void OnCollisionExit(Collision collisionInfo) {
+        if(collisionInfo.collider.tag == "Enemy")
+        {
+            Debug.Log("Removed");
+            enemyList.Remove(collisionInfo.gameObject);
         }
     }
     private void Shoot(){
@@ -107,6 +126,7 @@ public class Tower : MonoBehaviour, IPurchasble, ISellable, IUpgradeable
     }
     protected void Update()
     {
+        //GetEnemyList();
         UpdateTarget();
         if(target == null){
             return;

@@ -29,6 +29,7 @@ public class WaveSpawner : MonoBehaviour
     }
     private void SpawnEnemy(){
         numEnemiesAlive++;
-        Instantiate(enemyToSpawn, enemySpawnPoint.position, enemySpawnPoint.rotation);
+        //Instantiate(enemyToSpawn, enemySpawnPoint.position, enemySpawnPoint.rotation);
+        Instantiate(enemyToSpawn, Waypoints.waypoints[0].transform.position, Waypoints.waypoints[0].transform.rotation);
     }
 }

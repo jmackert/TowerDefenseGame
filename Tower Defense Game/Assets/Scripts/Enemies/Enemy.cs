@@ -12,23 +12,23 @@ public class Enemy : MonoBehaviour, IDamageable<float>, ISpawnable<int,Transform
     [SerializeField]protected int playerDamageAmount;
     [SerializeField]protected int waypointIndex = 0;
     
-    [SerializeField]protected Transform previousWaypoint; // continue here
+    [SerializeField]protected Transform previousWaypoint;
     [SerializeField]protected Transform targetWaypoint;
     protected Player player;
     protected EnemyPool enemyPool;
+    [SerializeField] private List<Tower> towerList;
 
     private void Start() {
         enemyPool = FindObjectOfType<EnemyPool>();
         GameObject Player = GameObject.Find("Player");
         player = Player.GetComponent<Player>();
         currentHp = maxHp;
-        targetWaypoint = Waypoints.waypoints[0];
-        previousWaypoint = null;
-
+        previousWaypoint = Waypoints.waypoints[0];
+        targetWaypoint = Waypoints.waypoints[1];
+        towerList = new List<Tower>();
     }
     private void Update() {
         Move();
-        //GetDistanceTraveled();
         if (Vector3.Distance(transform.position, targetWaypoint.position) <= 0.2f){
             GetNextWaypoint();
             GetPreviousWaypoint();
@@ -72,6 +72,10 @@ public class Enemy : MonoBehaviour, IDamageable<float>, ISpawnable<int,Transform
         Disable();
         player.IncreasePlayerGold(goldWorth);
         WaveSystem.numEnemiesAlive--;
+        foreach (Tower tower in towerList)
+        {
+            tower.enemyList.Remove(this.gameObject);
+        }
     }
     public int GetWaypointIndex(){
         return waypointIndex;
@@ -79,6 +83,16 @@ public class Enemy : MonoBehaviour, IDamageable<float>, ISpawnable<int,Transform
     public void SetWaypointIndex(int newWaypointIndex, Transform newTargetWaypoint){
         waypointIndex = newWaypointIndex;
         targetWaypoint = newTargetWaypoint;
+    }
+    private void GetLists(){
+
+    }
+    private void OnCollisionEnter(Collision collisionInfo) {
+        if(collisionInfo.collider.gameObject.layer == LayerMask.NameToLayer("Towers"))
+        {
+            Debug.Log("Entered Tower");
+            towerList.Add(collisionInfo.gameObject.GetComponent<Tower>());
+        }
     }
 
     private void GetDistanceTraveled()
@@ -88,6 +102,5 @@ public class Enemy : MonoBehaviour, IDamageable<float>, ISpawnable<int,Transform
         float distanceTraveled = (distanceFromPreviousWaypoint / distanceBetweenWaypoints) * 100;
         //Debug.Log("Distance Between Waypoints: " + distanceBetweenWaypoints);
         //Debug.Log("Distance Traveled: " + distanceTraveled);
-
     }
 }
