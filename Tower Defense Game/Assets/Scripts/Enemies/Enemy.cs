@@ -11,6 +11,7 @@ public class Enemy : MonoBehaviour, IDamageable<float>, ISpawnable<int,Transform
     [SerializeField]protected string unitName;
     [SerializeField]protected int playerDamageAmount;
     [SerializeField]protected int waypointIndex = 0;
+    [SerializeField]private float distanceTraveled;
     
     [SerializeField]protected Transform previousWaypoint;
     [SerializeField]protected Transform targetWaypoint;
@@ -30,8 +31,8 @@ public class Enemy : MonoBehaviour, IDamageable<float>, ISpawnable<int,Transform
     private void Update() {
         Move();
         if (Vector3.Distance(transform.position, targetWaypoint.position) <= 0.2f){
-            GetNextWaypoint();
-            GetPreviousWaypoint();
+            CalculateTargetWaypoint();
+            CalculatePreviousWaypoint();
         }
         GetDistanceTraveled();
     }
@@ -42,7 +43,7 @@ public class Enemy : MonoBehaviour, IDamageable<float>, ISpawnable<int,Transform
         transform.rotation = Quaternion.Euler(0f, rotation.y, 0f);
         transform.Translate(direction.normalized * movementSpeed * Time.deltaTime, Space.World); 
     }
-    private void GetNextWaypoint(){
+    private void CalculateTargetWaypoint(){
         if(waypointIndex >= Waypoints.waypoints.Length - 1){
             WaveSystem.numEnemiesAlive--;
             player.ReducePlayerLives(playerDamageAmount);
@@ -53,7 +54,7 @@ public class Enemy : MonoBehaviour, IDamageable<float>, ISpawnable<int,Transform
         targetWaypoint = Waypoints.waypoints[waypointIndex];
     }
 
-    private void GetPreviousWaypoint(){
+    private void CalculatePreviousWaypoint(){
         previousWaypoint = Waypoints.waypoints[waypointIndex - 1];
     }
     public void TakeDamage(float damageAmount){
@@ -72,10 +73,6 @@ public class Enemy : MonoBehaviour, IDamageable<float>, ISpawnable<int,Transform
         Disable();
         player.IncreasePlayerGold(goldWorth);
         WaveSystem.numEnemiesAlive--;
-        foreach (Tower tower in towerList)
-        {
-            tower.enemyList.Remove(this.gameObject);
-        }
     }
     public int GetWaypointIndex(){
         return waypointIndex;
@@ -84,23 +81,21 @@ public class Enemy : MonoBehaviour, IDamageable<float>, ISpawnable<int,Transform
         waypointIndex = newWaypointIndex;
         targetWaypoint = newTargetWaypoint;
     }
-    private void GetLists(){
-
-    }
-    private void OnCollisionEnter(Collision collisionInfo) {
-        if(collisionInfo.collider.gameObject.layer == LayerMask.NameToLayer("Towers"))
-        {
-            Debug.Log("Entered Tower");
-            towerList.Add(collisionInfo.gameObject.GetComponent<Tower>());
-        }
-    }
-
-    private void GetDistanceTraveled()
+    private void CalculateDistanceTraveled()
     {
         float distanceFromPreviousWaypoint = Vector3.Distance(transform.position, previousWaypoint.transform.position);
         float distanceBetweenWaypoints = Vector3.Distance(previousWaypoint.transform.position, targetWaypoint.transform.position);
-        float distanceTraveled = (distanceFromPreviousWaypoint / distanceBetweenWaypoints) * 100;
+        distanceTraveled = (distanceFromPreviousWaypoint / distanceBetweenWaypoints) * 100;
         //Debug.Log("Distance Between Waypoints: " + distanceBetweenWaypoints);
         //Debug.Log("Distance Traveled: " + distanceTraveled);
+    }
+    public float GetDistanceTraveled(){
+        return distanceTraveled;
+    }
+    public Transform GetPreviousWaypoint(){
+        return previousWaypoint;
+    }
+    public Transform GetTargetWaypoint(){
+        return targetWaypoint;
     }
 }

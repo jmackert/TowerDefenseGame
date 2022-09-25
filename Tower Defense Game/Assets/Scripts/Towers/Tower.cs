@@ -27,11 +27,14 @@ public class Tower : MonoBehaviour, IPurchasble, ISellable, IUpgradeable
     public GameObject projectilePrefab;
     public Transform firePoint;
     private ProjectilePool projectilePool;
-    [SerializeField] public List<GameObject> enemyList;
+    private int enemyLayer = 1 << 8;
+    [SerializeField] public List<Enemy> enemyList;
+    [SerializeField] private Collider[] enemyArray;
+
 
     private void Start() {
         projectilePool = FindObjectOfType<ProjectilePool>();
-        enemyList = new List<GameObject>();
+        enemyList = new List<Enemy>();
         //buildManager.ShowTowerUI(this.gameObject, towerName, upgradeOneCost, upgradeTwoCost, upgradeThreeCost);
     }
 
@@ -59,19 +62,35 @@ public class Tower : MonoBehaviour, IPurchasble, ISellable, IUpgradeable
         Gizmos.DrawWireSphere(transform.position, range);
     }
 
-    /*private void GetEnemyList(){
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, range);
-        foreach(Collider col in hitColliders){
-            if(enemyList.Contains(col.gameObject)){
-                return;
+    private void GetEnemyList(){
+        enemyArray = Physics.OverlapSphere(transform.position, range, enemyLayer);
+        foreach(Collider col in enemyArray){
+            if(enemyList.Contains(col.gameObject.GetComponent<Enemy>())){
+               return; 
             }
-            if(col.transform.tag == "Enemy"){
-                enemyList.Add(col.gameObject);
-            }
+            enemyList.Add(col.gameObject.GetComponent<Enemy>());
         }
-        
-    }*/
-    private void OnCollisionEnter(Collision collisionInfo) {
+    }
+    private void RemoveFromEnemyList(){
+        foreach(Enemy enemy in enemyList){
+            for(int i = 0; i < enemyArray.Length; i++){
+                if(enemyArray[i] == enemy.GetComponent<Collider>()){
+                    return;
+                }
+            }
+            enemyList.Remove(enemy);
+        }
+    }
+    private void GetFirstTarget(){
+        Enemy firstEnemy = enemyList[0];
+        for(int i = 0; i < enemyList.count; i++){
+            if(firstEnemy.GetTargetWaypoint() < enemyList[i].GetProjectile())
+            enemyList[i] = firstEnemy; // continue here
+        }
+        _enemy.GetDistanceTraveled();
+        _enemy.GetTargetWaypoint();
+    }
+    /*private void OnCollisionEnter(Collision collisionInfo) {
         if(collisionInfo.collider.tag == "Enemy")
         {
             Debug.Log("Entered");
@@ -84,7 +103,7 @@ public class Tower : MonoBehaviour, IPurchasble, ISellable, IUpgradeable
             Debug.Log("Removed");
             enemyList.Remove(collisionInfo.gameObject);
         }
-    }
+    }*/
     private void Shoot(){
 
         GameObject projectileGO = projectilePool.GetProjectile(projectilePrefab);
@@ -126,8 +145,9 @@ public class Tower : MonoBehaviour, IPurchasble, ISellable, IUpgradeable
     }
     protected void Update()
     {
-        //GetEnemyList();
+        GetEnemyList();
         UpdateTarget();
+        RemoveFromEnemyList();
         if(target == null){
             return;
         }
