@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public class Enemy : MonoBehaviour, IDamageable<float>, ISpawnable<int,Transform>
+public class EnemyController : MonoBehaviour, IDamageable<float>, ISpawnable<int,Transform>
 {
     [SerializeField]protected float movementSpeed;
     [SerializeField]protected float rotationSpeed;
@@ -17,7 +17,6 @@ public class Enemy : MonoBehaviour, IDamageable<float>, ISpawnable<int,Transform
     [SerializeField]protected Transform targetWaypoint;
     protected Player player;
     protected EnemyPool enemyPool;
-    [SerializeField] private List<Tower> towerList;
 
     private void Start() {
         enemyPool = FindObjectOfType<EnemyPool>();
@@ -26,7 +25,6 @@ public class Enemy : MonoBehaviour, IDamageable<float>, ISpawnable<int,Transform
         currentHp = maxHp;
         previousWaypoint = Waypoints.waypoints[0];
         targetWaypoint = Waypoints.waypoints[1];
-        towerList = new List<Tower>();
     }
     private void Update() {
         Move();
@@ -92,10 +90,7 @@ public class Enemy : MonoBehaviour, IDamageable<float>, ISpawnable<int,Transform
     public float GetDistanceTraveled(){
         return distanceTraveled;
     }
-    public Transform GetPreviousWaypoint(){
-        return previousWaypoint;
-    }
-    public Transform GetTargetWaypoint(){
-        return targetWaypoint;
+    public float GetMaxHP(){
+        return maxHp;
     }
 }

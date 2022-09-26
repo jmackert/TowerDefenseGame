@@ -20,7 +20,7 @@ public class TowerPlacement : MonoBehaviour
     private MeshRenderer towerMaterial;
     private GameObject selectedTower;
     private int layerTower;
-    private Tower selectedTowerScript;
+    private TowerController selectedTowerScript;
 
     BuildManager buildManager;
     private void Start() {
@@ -149,13 +149,13 @@ public class TowerPlacement : MonoBehaviour
         if(Input.GetMouseButtonDown(0) && Physics.Raycast(ray, out hitInfo, 100f, ~layerTower) && buildManager.GetUIState()  == false)
         {
             selectedTower = hitInfo.transform.gameObject;
-            selectedTowerScript = selectedTower.GetComponent<Tower>();
+            selectedTowerScript = selectedTower.GetComponent<TowerController>();
             buildManager.ShowTowerUI(selectedTower,selectedTowerScript.GetTowerName(),selectedTowerScript.GetUpgradeOneCost(), selectedTowerScript.GetUpgradeTwoCost(), selectedTowerScript.GetUpgradeThreeCost());
         }
         else if(Input.GetMouseButtonDown(0) && Physics.Raycast(ray, out hitInfo, 100f, ~layerTower) && hitInfo.transform.gameObject != selectedTower && buildManager.GetUIState()  == true)
         {
             selectedTower = hitInfo.transform.gameObject;
-            selectedTowerScript = selectedTower.GetComponent<Tower>();
+            selectedTowerScript = selectedTower.GetComponent<TowerController>();
             buildManager.ShowTowerUI(selectedTower,selectedTowerScript.GetTowerName(),selectedTowerScript.GetUpgradeOneCost(), selectedTowerScript.GetUpgradeTwoCost(), selectedTowerScript.GetUpgradeThreeCost());
         }
         else if(buildManager.GetUIState()  == true)

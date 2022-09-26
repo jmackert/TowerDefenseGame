@@ -27,7 +27,7 @@ public class BuildManager : MonoBehaviour
     
     private GameObject upgradedTower;
     private GameObject temp;
-    private Tower selectedTowerScript;
+    private TowerController selectedTowerScript;
 
     public bool GetUIState(){
         return isTowerUIOpen;
@@ -100,7 +100,7 @@ public class BuildManager : MonoBehaviour
         Destroy(selectedTower);
         selectedTower = upgradedTower;
         upgradedTower = null;
-        selectedTowerScript = selectedTower.GetComponent<Tower>();
+        selectedTowerScript = selectedTower.GetComponent<TowerController>();
         ShowTowerUI(selectedTower,selectedTowerScript.GetTowerName(),selectedTowerScript.GetUpgradeOneCost(), selectedTowerScript.GetUpgradeTwoCost(), selectedTowerScript.GetUpgradeThreeCost()); 
     }
 }

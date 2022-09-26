@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Tower : MonoBehaviour, IPurchasble, ISellable, IUpgradeable
+public class TowerController : MonoBehaviour, IPurchasble, ISellable, IUpgradeable
 {
     protected BuildManager buildManager = BuildManager.instance;
     [SerializeField]
@@ -28,13 +28,13 @@ public class Tower : MonoBehaviour, IPurchasble, ISellable, IUpgradeable
     public Transform firePoint;
     private ProjectilePool projectilePool;
     private int enemyLayer = 1 << 8;
-    [SerializeField] public List<Enemy> enemyList;
+    [SerializeField] public List<EnemyController> enemyList;
     [SerializeField] private Collider[] enemyArray;
 
 
     private void Start() {
         projectilePool = FindObjectOfType<ProjectilePool>();
-        enemyList = new List<Enemy>();
+        enemyList = new List<EnemyController>();
         //buildManager.ShowTowerUI(this.gameObject, towerName, upgradeOneCost, upgradeTwoCost, upgradeThreeCost);
     }
 
@@ -65,14 +65,14 @@ public class Tower : MonoBehaviour, IPurchasble, ISellable, IUpgradeable
     private void GetEnemyList(){
         enemyArray = Physics.OverlapSphere(transform.position, range, enemyLayer);
         foreach(Collider col in enemyArray){
-            if(enemyList.Contains(col.gameObject.GetComponent<Enemy>())){
+            if(enemyList.Contains(col.gameObject.GetComponent<EnemyController>())){
                return; 
             }
-            enemyList.Add(col.gameObject.GetComponent<Enemy>());
+            enemyList.Add(col.gameObject.GetComponent<EnemyController>());
         }
     }
     private void RemoveFromEnemyList(){
-        foreach(Enemy enemy in enemyList){
+        foreach(EnemyController enemy in enemyList){
             for(int i = 0; i < enemyArray.Length; i++){
                 if(enemyArray[i] == enemy.GetComponent<Collider>()){
                     return;
@@ -82,28 +82,59 @@ public class Tower : MonoBehaviour, IPurchasble, ISellable, IUpgradeable
         }
     }
     private void GetFirstTarget(){
-        Enemy firstEnemy = enemyList[0];
+        EnemyController firstEnemy = enemyList[0];
         for(int i = 0; i < enemyList.count; i++){
-            if(firstEnemy.GetTargetWaypoint() < enemyList[i].GetProjectile())
+            if(firstEnemy.GetTargetWaypoint() < enemyList[i].GetTargetWaypoint())
             enemyList[i] = firstEnemy; // continue here
         }
         _enemy.GetDistanceTraveled();
         _enemy.GetTargetWaypoint();
     }
-    /*private void OnCollisionEnter(Collision collisionInfo) {
-        if(collisionInfo.collider.tag == "Enemy")
-        {
-            Debug.Log("Entered");
-            enemyList.Add(collisionInfo.gameObject);
-        }
+
+    private EnemyController CompareGreaterPathProgress(EnemyController enemy1, EnemyController enemy2){
+        if(enemy1.GetWaypointIndex() > enemy2.GetWaypointIndex())
+            return enemy1;
+        if(enemy1.GetWaypointIndex() < enemy2.GetWaypointIndex())
+            return enemy2;
+        if(enemy1.GetDistanceTraveled() > enemy2.GetDistanceTraveled())
+            return enemy1;
+        if(enemy1.GetDistanceTraveled() < enemy2.GetDistanceTraveled())
+            return enemy2;
+        if(enemy1.GetDistanceTraveled() == enemy2.GetDistanceTraveled())
+            return enemy1;
     }
-    private void OnCollisionExit(Collision collisionInfo) {
-        if(collisionInfo.collider.tag == "Enemy")
-        {
-            Debug.Log("Removed");
-            enemyList.Remove(collisionInfo.gameObject);
-        }
-    }*/
+
+    private EnemyController CompareLeastPathProgress(EnemyController enemy1, EnemyController enemy2){
+        if(enemy1.GetWaypointIndex() < enemy2.GetWaypointIndex())
+            return enemy1;
+        if(enemy1.GetWaypointIndex() > enemy2.GetWaypointIndex())
+            return enemy2;
+        if(enemy1.GetDistanceTraveled() < enemy2.GetDistanceTraveled())
+            return enemy1;
+        if(enemy1.GetDistanceTraveled() > enemy2.GetDistanceTraveled())
+            return enemy2;
+        if(enemy1.GetDistanceTraveled() == enemy2.GetDistanceTraveled())
+            return enemy1;
+    }
+
+    private EnemyController CompareStrongestEnemy(EnemyController enemy1, EnemyController enemy2){
+        if(enemy1.GetMaxHP() > enemy2.GetMaxHP())
+            return enemy1;
+        if(enemy1.GetMaxHP() < enemy2.GetMaxHP())
+            return enemy2;
+        if(enemy1.GetMaxHP() == enemy2.GetMaxHP())
+            return enemy1;
+    }
+
+    private EnemyController CompareWeakestEnemy(EnemyController enemy1, EnemyController enemy2){
+        if(enemy1.GetMaxHP() > enemy2.GetMaxHP())
+            return enemy2;
+        if(enemy1.GetMaxHP() < enemy2.GetMaxHP())
+            return enemy1;
+        if(enemy1.GetMaxHP() == enemy2.GetMaxHP())
+            return enemy1;
+    }
+
     private void Shoot(){
 
         GameObject projectileGO = projectilePool.GetProjectile(projectilePrefab);

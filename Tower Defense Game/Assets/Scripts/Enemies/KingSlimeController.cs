@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class KingSlime : Enemy
+public class KingSlimeController : EnemyController
 {
     [SerializeField]private GameObject enemyToSpawn;
     private int numEnemiesToSpawn = 5;
@@ -10,7 +10,7 @@ public class KingSlime : Enemy
     private Vector3 positionToSpawnEnemies;
     public MeshRenderer meshRend;
 
-    public KingSlime(){
+    public KingSlimeController(){
         this.maxHp = 25f;
         this.unitName = "King Slime";
         this.movementSpeed = 2f;

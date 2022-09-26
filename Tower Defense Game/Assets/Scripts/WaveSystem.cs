@@ -40,8 +40,8 @@ public class WaveSystem : MonoBehaviour
 
     private void SpawnEnemy(GameObject enemy){
         GameObject enemyGO = enemyPool.GetEnemy(enemy);
-        Enemy enemySpawning = enemyGO.GetComponent<Enemy>();
-        enemySpawning.GetComponent<Enemy>();
+        EnemyController enemySpawning = enemyGO.GetComponent<EnemyController>();
+        enemySpawning.GetComponent<EnemyController>();
         enemyGO.transform.position = enemySpawnPoint.position;
         enemyGO.transform.rotation = enemySpawnPoint.rotation;
         numEnemiesAlive++;
