@@ -108,17 +108,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 184bae48cc8babf4082833bc88f3699a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 2.5
+  movementSpeed: 1
   rotationSpeed: 6
-  maxHp: 5
+  maxHp: 25
   currentHp: 0
   goldWorth: 5
   unitName: Slime
   playerDamageAmount: 1
   waypointIndex: 0
+  distanceTraveled: 0
   previousWaypoint: {fileID: 0}
   targetWaypoint: {fileID: 0}
-  towerList: []
 --- !u!65 &6702092678407034231
 BoxCollider:
   m_ObjectHideFlags: 0

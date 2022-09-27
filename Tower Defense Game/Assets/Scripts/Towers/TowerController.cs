@@ -39,6 +39,7 @@ public class TowerController : MonoBehaviour, IPurchasble, ISellable, IUpgradeab
     }
 
     private void UpdateTarget(){
+        /*
         GameObject[] enemies = GameObject.FindGameObjectsWithTag(enemyTag);
 
         float shortestDistance = Mathf.Infinity;
@@ -55,8 +56,10 @@ public class TowerController : MonoBehaviour, IPurchasble, ISellable, IUpgradeab
             target = nearestEnemy.transform;
         }else{
             target = null;
-        }
+        }*/
+        GetWeakestTarget();
     }
+
     private void OnDrawGizmosSelected() {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, range);
@@ -82,61 +85,112 @@ public class TowerController : MonoBehaviour, IPurchasble, ISellable, IUpgradeab
         }
     }
     private void GetFirstTarget(){
-        EnemyController firstEnemy = enemyList[0];
-        for(int i = 0; i < enemyList.count; i++){
-            if(firstEnemy.GetTargetWaypoint() < enemyList[i].GetTargetWaypoint())
-            enemyList[i] = firstEnemy; // continue here
+        if(enemyArray != null){
+            EnemyController furthestEnemy = enemyList[0];
+            for(int i = 0; i < enemyList.Count; i++){
+                furthestEnemy = CompareGreaterPathProgress(furthestEnemy, enemyList[i]);
+                target = furthestEnemy.transform;
+            }
         }
-        _enemy.GetDistanceTraveled();
-        _enemy.GetTargetWaypoint();
+    }
+
+    private void GetLastTarget(){
+        if(enemyArray != null){
+            EnemyController lastEnemy = enemyList[0];
+            for(int i = 0; i < enemyList.Count; i++){
+                lastEnemy = CompareLeastPathProgress(lastEnemy, enemyList[i]);
+                target = lastEnemy.transform;
+            }
+        }
+    }
+
+    private void GetStrongestTarget(){
+        if(enemyArray != null){
+            EnemyController strongestEnemy = enemyList[0];
+            for(int i = 0; i < enemyList.Count; i++){
+                strongestEnemy = CompareStrongestEnemy(strongestEnemy, enemyList[i]);
+                target = strongestEnemy.transform;
+            }
+        }
+    }
+
+    private void GetWeakestTarget(){
+        if(enemyArray != null){
+            EnemyController weakestEnemy = enemyList[0];
+            for(int i = 0; i < enemyList.Count; i++){
+                weakestEnemy = CompareWeakestEnemy(weakestEnemy, enemyList[i]);
+                target = weakestEnemy.transform;
+            }
+        }
+    }
+
+    private void GetClosestTarget(){
+        // Continue here
     }
 
     private EnemyController CompareGreaterPathProgress(EnemyController enemy1, EnemyController enemy2){
-        if(enemy1.GetWaypointIndex() > enemy2.GetWaypointIndex())
+        //Debug.Log("FIRST");
+        if(enemy1.GetWaypointIndex() > enemy2.GetWaypointIndex()){
+            Debug.Log("First enemy 1");
             return enemy1;
-        if(enemy1.GetWaypointIndex() < enemy2.GetWaypointIndex())
+        }
+        else if(enemy1.GetWaypointIndex() < enemy2.GetWaypointIndex()){
+            Debug.Log("First enemy 2");
             return enemy2;
-        if(enemy1.GetDistanceTraveled() > enemy2.GetDistanceTraveled())
-            return enemy1;
-        if(enemy1.GetDistanceTraveled() < enemy2.GetDistanceTraveled())
-            return enemy2;
-        if(enemy1.GetDistanceTraveled() == enemy2.GetDistanceTraveled())
-            return enemy1;
+        }
+        else if(enemy1.GetWaypointIndex() == enemy2.GetWaypointIndex()){
+            if(enemy1.GetDistanceTraveled() >= enemy2.GetDistanceTraveled()){
+                Debug.Log("Second enemy 1");
+                return enemy1;
+            }
+            else if(enemy1.GetDistanceTraveled() < enemy2.GetDistanceTraveled()){
+                Debug.Log("Second enemy 2");
+                return enemy2;
+            } 
+        }
+        Debug.Log("Thrid enemy 1");
+        return enemy1;
     }
 
     private EnemyController CompareLeastPathProgress(EnemyController enemy1, EnemyController enemy2){
-        if(enemy1.GetWaypointIndex() < enemy2.GetWaypointIndex())
+        if(enemy1.GetWaypointIndex() < enemy2.GetWaypointIndex()){
             return enemy1;
-        if(enemy1.GetWaypointIndex() > enemy2.GetWaypointIndex())
-            return enemy2;
-        if(enemy1.GetDistanceTraveled() < enemy2.GetDistanceTraveled())
-            return enemy1;
-        if(enemy1.GetDistanceTraveled() > enemy2.GetDistanceTraveled())
-            return enemy2;
-        if(enemy1.GetDistanceTraveled() == enemy2.GetDistanceTraveled())
-            return enemy1;
+        }
+        if(enemy1.GetWaypointIndex() == enemy2.GetWaypointIndex()){
+            if(enemy1.GetDistanceTraveled() < enemy2.GetDistanceTraveled()){
+                return enemy1;
+            }
+            else return enemy2;
+        }
+        else return enemy2;
     }
 
     private EnemyController CompareStrongestEnemy(EnemyController enemy1, EnemyController enemy2){
-        if(enemy1.GetMaxHP() > enemy2.GetMaxHP())
+        if(enemy1.GetMaxHP() > enemy2.GetMaxHP()){
             return enemy1;
-        if(enemy1.GetMaxHP() < enemy2.GetMaxHP())
+        }
+        else if(enemy1.GetMaxHP() < enemy2.GetMaxHP()){
             return enemy2;
-        if(enemy1.GetMaxHP() == enemy2.GetMaxHP())
-            return enemy1;
+        }
+        return enemy1;
     }
 
     private EnemyController CompareWeakestEnemy(EnemyController enemy1, EnemyController enemy2){
-        if(enemy1.GetMaxHP() > enemy2.GetMaxHP())
+        if(enemy1.GetMaxHP() < enemy2.GetMaxHP()){
+            return enemy1;
+        }
+        else if(enemy1.GetMaxHP() > enemy2.GetMaxHP()){
             return enemy2;
-        if(enemy1.GetMaxHP() < enemy2.GetMaxHP())
-            return enemy1;
-        if(enemy1.GetMaxHP() == enemy2.GetMaxHP())
-            return enemy1;
+        }
+        return enemy1;
+    }
+
+    private EnemyController CompareClosestEnemy(EnemyController enemy1, EnemyController enemy2){
+        //Continue here
+        return enemy1;
     }
 
     private void Shoot(){
-
         GameObject projectileGO = projectilePool.GetProjectile(projectilePrefab);
         Projectile projectile = projectileGO.GetComponent<Projectile>();
         projectile.GetComponent<Projectile>();
