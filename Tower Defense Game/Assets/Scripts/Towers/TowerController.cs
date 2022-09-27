@@ -39,25 +39,7 @@ public class TowerController : MonoBehaviour, IPurchasble, ISellable, IUpgradeab
     }
 
     private void UpdateTarget(){
-        /*
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag(enemyTag);
-
-        float shortestDistance = Mathf.Infinity;
-        GameObject nearestEnemy = null;
-        foreach (GameObject enemy in enemies)
-        {
-            float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
-            if(distanceToEnemy < shortestDistance){
-                shortestDistance = distanceToEnemy;
-                nearestEnemy = enemy;
-            }
-        }
-        if(nearestEnemy != null && shortestDistance <= range){
-            target = nearestEnemy.transform;
-        }else{
-            target = null;
-        }*/
-        GetWeakestTarget();
+        GetClosestTarget();
     }
 
     private void OnDrawGizmosSelected() {
@@ -85,70 +67,66 @@ public class TowerController : MonoBehaviour, IPurchasble, ISellable, IUpgradeab
         }
     }
     private void GetFirstTarget(){
-        if(enemyArray != null){
-            EnemyController furthestEnemy = enemyList[0];
-            for(int i = 0; i < enemyList.Count; i++){
-                furthestEnemy = CompareGreaterPathProgress(furthestEnemy, enemyList[i]);
-                target = furthestEnemy.transform;
+        EnemyController furthestEnemy = enemyList[0];
+        for(int i = 0; i < enemyList.Count; i++){
+            furthestEnemy = CompareGreaterPathProgress(furthestEnemy, enemyList[i]);
+            target = furthestEnemy.transform;
             }
-        }
     }
 
     private void GetLastTarget(){
-        if(enemyArray != null){
-            EnemyController lastEnemy = enemyList[0];
-            for(int i = 0; i < enemyList.Count; i++){
-                lastEnemy = CompareLeastPathProgress(lastEnemy, enemyList[i]);
-                target = lastEnemy.transform;
-            }
+        EnemyController lastEnemy = enemyList[0];
+        for(int i = 0; i < enemyList.Count; i++){
+            lastEnemy = CompareLeastPathProgress(lastEnemy, enemyList[i]);
+            target = lastEnemy.transform;
         }
     }
 
     private void GetStrongestTarget(){
-        if(enemyArray != null){
-            EnemyController strongestEnemy = enemyList[0];
-            for(int i = 0; i < enemyList.Count; i++){
-                strongestEnemy = CompareStrongestEnemy(strongestEnemy, enemyList[i]);
-                target = strongestEnemy.transform;
-            }
+        EnemyController strongestEnemy = enemyList[0];
+        for(int i = 0; i < enemyList.Count; i++){
+            strongestEnemy = CompareStrongestEnemy(strongestEnemy, enemyList[i]);
+            target = strongestEnemy.transform;
         }
     }
 
     private void GetWeakestTarget(){
-        if(enemyArray != null){
-            EnemyController weakestEnemy = enemyList[0];
-            for(int i = 0; i < enemyList.Count; i++){
-                weakestEnemy = CompareWeakestEnemy(weakestEnemy, enemyList[i]);
-                target = weakestEnemy.transform;
-            }
+        EnemyController weakestEnemy = enemyList[0];
+        for(int i = 0; i < enemyList.Count; i++){
+            weakestEnemy = CompareWeakestEnemy(weakestEnemy, enemyList[i]);
+            target = weakestEnemy.transform;
         }
     }
 
     private void GetClosestTarget(){
-        // Continue here
+        EnemyController closestEnemy = enemyList[0];
+        float closestDistance = Vector3.Distance(transform.position, closestEnemy.transform.position);
+
+        for(int i = 0; i < enemyList.Count; i++){
+            float currentEnemyDistance = Vector3.Distance(transform.position, enemyList[i].transform.position);
+            if(currentEnemyDistance < closestDistance){
+                closestEnemy = enemyList[i];
+                closestDistance = currentEnemyDistance;
+            }
+        }
+        target = closestEnemy.transform;
     }
 
     private EnemyController CompareGreaterPathProgress(EnemyController enemy1, EnemyController enemy2){
-        //Debug.Log("FIRST");
         if(enemy1.GetWaypointIndex() > enemy2.GetWaypointIndex()){
-            Debug.Log("First enemy 1");
             return enemy1;
         }
         else if(enemy1.GetWaypointIndex() < enemy2.GetWaypointIndex()){
-            Debug.Log("First enemy 2");
             return enemy2;
         }
         else if(enemy1.GetWaypointIndex() == enemy2.GetWaypointIndex()){
             if(enemy1.GetDistanceTraveled() >= enemy2.GetDistanceTraveled()){
-                Debug.Log("Second enemy 1");
                 return enemy1;
             }
             else if(enemy1.GetDistanceTraveled() < enemy2.GetDistanceTraveled()){
-                Debug.Log("Second enemy 2");
                 return enemy2;
             } 
         }
-        Debug.Log("Thrid enemy 1");
         return enemy1;
     }
 
@@ -182,11 +160,6 @@ public class TowerController : MonoBehaviour, IPurchasble, ISellable, IUpgradeab
         else if(enemy1.GetMaxHP() > enemy2.GetMaxHP()){
             return enemy2;
         }
-        return enemy1;
-    }
-
-    private EnemyController CompareClosestEnemy(EnemyController enemy1, EnemyController enemy2){
-        //Continue here
         return enemy1;
     }
 
