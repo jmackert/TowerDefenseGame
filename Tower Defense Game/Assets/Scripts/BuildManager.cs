@@ -21,6 +21,7 @@ public class BuildManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI upgradeOneCostText;
     [SerializeField] private TextMeshProUGUI upgradeTwoCostText;
     [SerializeField] private TextMeshProUGUI upgradeThreeCostText;
+    [SerializeField] private TextMeshProUGUI targetTypeText;
     [SerializeField] private Button pathOneUi;
     [SerializeField] private Button pathTwoUi;
     [SerializeField] private Button pathThreeUi;
@@ -31,6 +32,14 @@ public class BuildManager : MonoBehaviour
 
     public bool GetUIState(){
         return isTowerUIOpen;
+    }
+
+    private void ChangeTargetType(){
+        //selectedTowerScript = selectedTower.GetComponent<TowerController>();
+        //selectedTowerScript.TowerTargetType = selectedTowerScript.TowerTargetType.First;
+    }
+    public void CheckTargetType(){
+
     }
 
     public void CheckUpgradePaths(){

@@ -39,7 +39,7 @@ public class TowerController : MonoBehaviour, IPurchasble, ISellable, IUpgradeab
     private void Start() {
         projectilePool = FindObjectOfType<ProjectilePool>();
         enemyList = new List<EnemyController>();
-        //buildManager.ShowTowerUI(this.gameObject, towerName, upgradeOneCost, upgradeTwoCost, upgradeThreeCost);
+        buildManager.ShowTowerUI(this.gameObject, towerName, upgradeOneCost, upgradeTwoCost, upgradeThreeCost);
     }
 
     private void UpdateTarget(){
