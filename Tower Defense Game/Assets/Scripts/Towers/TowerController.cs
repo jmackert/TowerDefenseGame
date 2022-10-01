@@ -32,6 +32,10 @@ public class TowerController : MonoBehaviour, IPurchasble, ISellable, IUpgradeab
     [SerializeField] private Collider[] enemyArray;
 
 
+
+    public enum TowerTargetType {First, Last, Strongest, Weakest, Close};
+    TowerTargetType targetType = TowerTargetType.First;
+
     private void Start() {
         projectilePool = FindObjectOfType<ProjectilePool>();
         enemyList = new List<EnemyController>();
@@ -45,6 +49,31 @@ public class TowerController : MonoBehaviour, IPurchasble, ISellable, IUpgradeab
     private void OnDrawGizmosSelected() {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, range);
+    }
+
+    private void DetermineTarget()
+    {
+        switch (targetType)
+        {
+            case TowerTargetType.First:
+                GetFirstTarget();
+                break;
+            case TowerTargetType.Last:
+                GetLastTarget();
+                break;
+            case TowerTargetType.Strongest:
+                GetStrongestTarget();
+                break;
+            case TowerTargetType.Weakest:
+                GetWeakestTarget();
+                break;
+            case TowerTargetType.Close:
+                GetClosestTarget();
+                break;
+            default:
+                Debug.LogError("Enum out of range!");
+                break;
+        }
     }
 
     private void GetEnemyList(){
