@@ -34,12 +34,10 @@ public class BuildManager : MonoBehaviour
         return isTowerUIOpen;
     }
 
-    private void ChangeTargetType(){
-        //selectedTowerScript = selectedTower.GetComponent<TowerController>();
-        //selectedTowerScript.TowerTargetType = selectedTowerScript.TowerTargetType.First;
-    }
-    public void CheckTargetType(){
-
+    public void ChangeTargetType(){
+        selectedTowerScript = selectedTower.GetComponent<TowerController>();
+        selectedTowerScript.IterateTargetType();
+        targetTypeText.text = selectedTowerScript.GetTargetType().ToString();
     }
 
     public void CheckUpgradePaths(){
@@ -62,6 +60,8 @@ public class BuildManager : MonoBehaviour
         upgradeOneCostText.text = upgradeOneCost.ToString();
         upgradeTwoCostText.text = upgradeTwoCost.ToString();
         upgradeThreeCostText.text = upgradeThreeCost.ToString();
+        selectedTowerScript = _selectedTower.GetComponent<TowerController>();
+        targetTypeText.text = selectedTowerScript.GetTargetType().ToString();
         selectedTower = _selectedTower;
         CheckUpgradePaths();
         towerUi.SetActive(true);

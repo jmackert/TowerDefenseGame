@@ -30,9 +30,6 @@ public class TowerController : MonoBehaviour, IPurchasble, ISellable, IUpgradeab
     private int enemyLayer = 1 << 8;
     [SerializeField] public List<EnemyController> enemyList;
     [SerializeField] private Collider[] enemyArray;
-
-
-
     public enum TowerTargetType {First, Last, Strongest, Weakest, Close};
     TowerTargetType targetType = TowerTargetType.First;
 
@@ -40,6 +37,17 @@ public class TowerController : MonoBehaviour, IPurchasble, ISellable, IUpgradeab
         projectilePool = FindObjectOfType<ProjectilePool>();
         enemyList = new List<EnemyController>();
         buildManager.ShowTowerUI(this.gameObject, towerName, upgradeOneCost, upgradeTwoCost, upgradeThreeCost);
+    }
+
+    public TowerTargetType GetTargetType(){
+        return targetType;
+    }
+
+    public void IterateTargetType(){
+        if(targetType != TowerTargetType.Close){
+            targetType++;
+        }
+        else targetType = TowerTargetType.First; 
     }
 
     private void UpdateTarget(){
@@ -51,8 +59,7 @@ public class TowerController : MonoBehaviour, IPurchasble, ISellable, IUpgradeab
         Gizmos.DrawWireSphere(transform.position, range);
     }
 
-    private void DetermineTarget()
-    {
+    private void DetermineTarget(){
         switch (targetType)
         {
             case TowerTargetType.First:
@@ -85,6 +92,7 @@ public class TowerController : MonoBehaviour, IPurchasble, ISellable, IUpgradeab
             enemyList.Add(col.gameObject.GetComponent<EnemyController>());
         }
     }
+
     private void RemoveFromEnemyList(){
         foreach(EnemyController enemy in enemyList){
             for(int i = 0; i < enemyArray.Length; i++){
@@ -95,6 +103,7 @@ public class TowerController : MonoBehaviour, IPurchasble, ISellable, IUpgradeab
             enemyList.Remove(enemy);
         }
     }
+
     private void GetFirstTarget(){
         EnemyController furthestEnemy = enemyList[0];
         for(int i = 0; i < enemyList.Count; i++){
@@ -230,17 +239,18 @@ public class TowerController : MonoBehaviour, IPurchasble, ISellable, IUpgradeab
     public string GetTowerName(){
         return towerName;
     }
-    protected void Update()
-    {
+    protected void Update(){
         GetEnemyList();
-        UpdateTarget();
-        RemoveFromEnemyList();
+        if(enemyList != null && enemyArray != null){
+            DetermineTarget();
+            RemoveFromEnemyList();
+            if(fireCountdown <= 0f){
+                Shoot();
+                fireCountdown = 1f / fireRate;
+            }
+        }
         if(target == null){
             return;
-        }
-        if(fireCountdown <= 0f){
-            Shoot();
-            fireCountdown = 1f / fireRate;
         }
         fireCountdown -= Time.deltaTime;
     }

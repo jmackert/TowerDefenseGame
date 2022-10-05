@@ -2277,7 +2277,7 @@ MonoBehaviour:
   upgradeOneCostText: {fileID: 227593870}
   upgradeTwoCostText: {fileID: 333723574}
   upgradeThreeCostText: {fileID: 1903779370}
-  targetTypeText: {fileID: 0}
+  targetTypeText: {fileID: 1781997087}
   pathOneUi: {fileID: 553563004}
   pathTwoUi: {fileID: 346183636}
   pathThreeUi: {fileID: 1229329892}
@@ -2924,7 +2924,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &307889223
 Transform:
   m_ObjectHideFlags: 0
@@ -15837,7 +15837,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 226847862}
         m_TargetAssemblyTypeName: BuildManager, Assembly-CSharp
-        m_MethodName: SellTower
+        m_MethodName: ChangeTargetType
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -19042,7 +19042,7 @@ GameObject:
   - component: {fileID: 1781997088}
   - component: {fileID: 1781997087}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: TargetTypeText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
