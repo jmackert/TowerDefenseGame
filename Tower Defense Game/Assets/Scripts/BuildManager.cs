@@ -21,16 +21,23 @@ public class BuildManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI upgradeOneCostText;
     [SerializeField] private TextMeshProUGUI upgradeTwoCostText;
     [SerializeField] private TextMeshProUGUI upgradeThreeCostText;
+    [SerializeField] private TextMeshProUGUI targetTypeText;
     [SerializeField] private Button pathOneUi;
     [SerializeField] private Button pathTwoUi;
     [SerializeField] private Button pathThreeUi;
     
     private GameObject upgradedTower;
     private GameObject temp;
-    private Tower selectedTowerScript;
+    private TowerController selectedTowerScript;
 
     public bool GetUIState(){
         return isTowerUIOpen;
+    }
+
+    public void ChangeTargetType(){
+        selectedTowerScript = selectedTower.GetComponent<TowerController>();
+        selectedTowerScript.IterateTargetType();
+        targetTypeText.text = selectedTowerScript.GetTargetType().ToString();
     }
 
     public void CheckUpgradePaths(){
@@ -53,6 +60,8 @@ public class BuildManager : MonoBehaviour
         upgradeOneCostText.text = upgradeOneCost.ToString();
         upgradeTwoCostText.text = upgradeTwoCost.ToString();
         upgradeThreeCostText.text = upgradeThreeCost.ToString();
+        selectedTowerScript = _selectedTower.GetComponent<TowerController>();
+        targetTypeText.text = selectedTowerScript.GetTargetType().ToString();
         selectedTower = _selectedTower;
         CheckUpgradePaths();
         towerUi.SetActive(true);
@@ -100,7 +109,7 @@ public class BuildManager : MonoBehaviour
         Destroy(selectedTower);
         selectedTower = upgradedTower;
         upgradedTower = null;
-        selectedTowerScript = selectedTower.GetComponent<Tower>();
+        selectedTowerScript = selectedTower.GetComponent<TowerController>();
         ShowTowerUI(selectedTower,selectedTowerScript.GetTowerName(),selectedTowerScript.GetUpgradeOneCost(), selectedTowerScript.GetUpgradeTwoCost(), selectedTowerScript.GetUpgradeThreeCost()); 
     }
 }

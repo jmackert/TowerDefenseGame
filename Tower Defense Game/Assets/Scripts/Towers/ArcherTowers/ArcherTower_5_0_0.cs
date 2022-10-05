@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ArcherTower_5_0_0 : Tower
+public class ArcherTower_5_0_0 : TowerController
 {
     public ArcherTower_5_0_0(){
         this.towerName = "Archer Tower 5_0_0";

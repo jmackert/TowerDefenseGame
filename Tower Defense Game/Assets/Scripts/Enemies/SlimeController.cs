@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Slime : Enemy
+public class SlimeController : EnemyController
 {
-    public Slime(){
+    public SlimeController(){
         this.maxHp = 5f;
         this.unitName = "Slime";
         this.movementSpeed = 2.5f;

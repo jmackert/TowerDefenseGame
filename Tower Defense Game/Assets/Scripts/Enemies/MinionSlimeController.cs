@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MinionSlime : KingSlime
+public class MinionSlimeController : KingSlimeController
 {
-    public MinionSlime(){
+    public MinionSlimeController(){
         this.maxHp = 10f;
         this.unitName = "Slime";
         this.movementSpeed = 2.5f;
