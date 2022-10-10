@@ -5,7 +5,7 @@ using UnityEngine;
 public class KingSlimeController : EnemyController
 {
     [SerializeField]private GameObject enemyToSpawn;
-    private int numEnemiesToSpawn = 5;
+    [SerializeField]private int numEnemiesToSpawn = 5;
     private int i = 0;
     private Vector3 positionToSpawnEnemies;
     public MeshRenderer meshRend;
@@ -29,18 +29,20 @@ public class KingSlimeController : EnemyController
     }
 
     IEnumerator SpawnEnemies(){
-        ISpawnable<int, Transform> spawnable = enemyToSpawn.GetComponent<ISpawnable<int, Transform>>();
+        ISpawnable<int, Transform, Transform> spawnable = enemyToSpawn.GetComponent<ISpawnable<int, Transform, Transform>>();
         movementSpeed = 0;
         meshRend.enabled = false;
         while (i < numEnemiesToSpawn)
         {
             Instantiate(enemyToSpawn,transform.position,Quaternion.identity);
-            spawnable.SetWaypointIndex(waypointIndex, targetWaypoint);
-            WaveSpawner.numEnemiesAlive++;
+            spawnable.SetWaypointIndex(waypointIndex, previousWaypoint, targetWaypoint);
+            WaveSystem.numEnemiesAlive++;
             Debug.Log("TEST: " + i);
             i++;
             yield return new WaitForSeconds(0.15f);
         }
+        movementSpeed = 2f;
+        meshRend.enabled = true;
         base.Die();
     }
 }

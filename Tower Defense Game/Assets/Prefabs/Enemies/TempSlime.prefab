@@ -108,9 +108,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 184bae48cc8babf4082833bc88f3699a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 1
+  movementSpeed: 2.5
   rotationSpeed: 6
-  maxHp: 25
+  maxHp: 10
   currentHp: 0
   goldWorth: 5
   unitName: Slime
