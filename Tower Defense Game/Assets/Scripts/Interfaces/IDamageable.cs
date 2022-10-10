@@ -6,7 +6,7 @@ public interface IDamageable<T>{
     void TakeDamage(T damageAmount);
 }
 
-public interface ISpawnable<T,I>{
+public interface ISpawnable<T, J, I>{
     int GetWaypointIndex();
-    void SetWaypointIndex(T newWaypointIndex, I newTarget);
+    void SetWaypointIndex(T newWaypointIndex, J newPreviousWaypoint, I newTarget);
 }

@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 1702575846938779462}
   - component: {fileID: -4181487218513064517}
   - component: {fileID: 1684791606977261286}
-  - component: {fileID: 5957911822277707875}
   - component: {fileID: 3857291141749423196}
   m_Layer: 3
   m_Name: TempTower 0-0-0
@@ -28,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 335769469010820040}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.135395, y: 0.5, z: -5.1782265}
+  m_LocalPosition: {x: 4.7729125, y: 0.5, z: -9.686907}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7266801947911664342}
@@ -71,19 +70,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1.5461401, z: 1}
   m_Center: {x: 0, y: 0.79108316, z: 0}
---- !u!135 &5957911822277707875
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 335769469010820040}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 2.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &3857291141749423196
 Rigidbody:
   m_ObjectHideFlags: 0

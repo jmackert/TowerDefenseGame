@@ -16,7 +16,7 @@ public class WaveSystem : MonoBehaviour
     }
 
     private void Update() {
-
+        Debug.Log("Num Enemies Alive: " + numEnemiesAlive);
             if(numEnemiesAlive == 0 && player.GetCurrentLives() > 0 && waveNumber <= waveArray.Length){
                 StartCoroutine(SpawnWave());
             }

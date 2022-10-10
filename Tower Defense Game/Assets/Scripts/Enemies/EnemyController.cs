@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public class EnemyController : MonoBehaviour, IDamageable<float>, ISpawnable<int,Transform>
+public class EnemyController : MonoBehaviour, IDamageable<float>, ISpawnable<int,Transform, Transform>
 {
     [SerializeField]protected float movementSpeed;
     [SerializeField]protected float rotationSpeed;
@@ -64,7 +64,9 @@ public class EnemyController : MonoBehaviour, IDamageable<float>, ISpawnable<int
     private void Disable(){
         currentHp = maxHp;
         waypointIndex = 0;
-        targetWaypoint = Waypoints.waypoints[waypointIndex];
+        previousWaypoint = Waypoints.waypoints[0];
+        targetWaypoint = Waypoints.waypoints[1];
+        //targetWaypoint = Waypoints.waypoints[waypointIndex];
         gameObject.SetActive(false);
     }
     protected virtual void Die(){
@@ -75,8 +77,9 @@ public class EnemyController : MonoBehaviour, IDamageable<float>, ISpawnable<int
     public int GetWaypointIndex(){
         return waypointIndex;
     }
-    public void SetWaypointIndex(int newWaypointIndex, Transform newTargetWaypoint){
+    public void SetWaypointIndex(int newWaypointIndex, Transform newPreviousWaypoint, Transform newTargetWaypoint){
         waypointIndex = newWaypointIndex;
+        previousWaypoint = newPreviousWaypoint;
         targetWaypoint = newTargetWaypoint;
     }
     private void CalculateDistanceTraveled()

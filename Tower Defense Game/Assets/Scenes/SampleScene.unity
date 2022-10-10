@@ -358,6 +358,13 @@ MonoBehaviour:
     - enemyToSpawn: {fileID: 6293664390050927840, guid: 7cceb0a32c1ebe449a588cbfbd7bde9a, type: 3}
       spawnInterval: 1
       numEnemiesToSpawn: 2
+  - waveInfoArray:
+    - enemyToSpawn: {fileID: 6293664390050927840, guid: 414a80fae91bcf346b4256cdbf928bbf, type: 3}
+      spawnInterval: 1
+      numEnemiesToSpawn: 3
+    - enemyToSpawn: {fileID: 6293664390050927840, guid: 7cceb0a32c1ebe449a588cbfbd7bde9a, type: 3}
+      spawnInterval: 1
+      numEnemiesToSpawn: 2
   enemySpawnPoint: {fileID: 8182167461049385160}
   player: {fileID: 1002941396}
   waveNumber: 0
