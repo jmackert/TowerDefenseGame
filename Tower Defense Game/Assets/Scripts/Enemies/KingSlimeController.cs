@@ -6,9 +6,8 @@ public class KingSlimeController : EnemyController
 {
     [SerializeField]private GameObject enemyToSpawn;
     [SerializeField]private int numEnemiesToSpawn = 5;
-    private int i = 0;
-    private Vector3 positionToSpawnEnemies;
-    public MeshRenderer meshRend;
+    [SerializeField]private Vector3 center;
+    private float spawnRadius = 1;
 
     public KingSlimeController(){
         this.maxHp = 25f;
@@ -18,31 +17,45 @@ public class KingSlimeController : EnemyController
         this.goldWorth = 50;
         this.playerDamageAmount = 1 + numEnemiesToSpawn;
     }
+
+    private void Start(){
+        enemyPool = FindObjectOfType<EnemyPool>();
+        GameObject Player = GameObject.Find("Player");
+        player = Player.GetComponent<Player>();
+        currentHp = maxHp;
+        previousWaypoint = Waypoints.waypoints[0];
+        targetWaypoint = Waypoints.waypoints[1];
+    }
+
+    private void Update() {
+        Move();
+        center = transform.position;
+        if (Vector3.Distance(transform.position, targetWaypoint.position) <= 0.2f){
+            CalculateTargetWaypoint();
+            CalculatePreviousWaypoint();
+        }
+        GetDistanceTraveled();
+    }
+
     protected override void Die()
     {
-        if(enemyToSpawn != null){
-            StartCoroutine(SpawnEnemies());   
-        }
-        else{
-            base.Die();
+        SpawnMinions();
+        base.Die();
+    }
+
+    private void SpawnMinions(){
+        ISpawnable<int, Transform, Transform> spawnable = enemyToSpawn.GetComponent<ISpawnable<int, Transform, Transform>>();
+        for (int i = 0; i < numEnemiesToSpawn; i++)
+        {
+            Vector3 randomPos = center + new Vector3(Random.Range(-spawnRadius / 2, spawnRadius / 2), 0f, Random.Range(-spawnRadius / 2, spawnRadius / 2));
+            spawnable.SetWaypointIndex(waypointIndex, previousWaypoint, targetWaypoint);
+            Instantiate(enemyToSpawn, randomPos, Quaternion.identity);
+            WaveSystem.numEnemiesAlive++;
         }
     }
 
-    IEnumerator SpawnEnemies(){
-        ISpawnable<int, Transform, Transform> spawnable = enemyToSpawn.GetComponent<ISpawnable<int, Transform, Transform>>();
-        movementSpeed = 0;
-        meshRend.enabled = false;
-        while (i < numEnemiesToSpawn)
-        {
-            Instantiate(enemyToSpawn,transform.position,Quaternion.identity);
-            spawnable.SetWaypointIndex(waypointIndex, previousWaypoint, targetWaypoint);
-            WaveSystem.numEnemiesAlive++;
-            Debug.Log("TEST: " + i);
-            i++;
-            yield return new WaitForSeconds(0.15f);
-        }
-        movementSpeed = 2f;
-        meshRend.enabled = true;
-        base.Die();
+    private void OnDrawGizmosSelected() {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, spawnRadius);
     }
 }

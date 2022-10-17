@@ -34,14 +34,14 @@ public class EnemyController : MonoBehaviour, IDamageable<float>, ISpawnable<int
         }
         GetDistanceTraveled();
     }
-    private void Move(){
+    protected void Move(){
         Vector3 direction = targetWaypoint.position - transform.position;
         Quaternion lookRotation = Quaternion.LookRotation(direction);
         Vector3 rotation = Quaternion.Lerp(transform.rotation, lookRotation, Time.deltaTime * rotationSpeed).eulerAngles;
         transform.rotation = Quaternion.Euler(0f, rotation.y, 0f);
         transform.Translate(direction.normalized * movementSpeed * Time.deltaTime, Space.World); 
     }
-    private void CalculateTargetWaypoint(){
+    protected void CalculateTargetWaypoint(){
         if(waypointIndex >= Waypoints.waypoints.Length - 1){
             WaveSystem.numEnemiesAlive--;
             player.ReducePlayerLives(playerDamageAmount);
@@ -52,7 +52,7 @@ public class EnemyController : MonoBehaviour, IDamageable<float>, ISpawnable<int
         targetWaypoint = Waypoints.waypoints[waypointIndex];
     }
 
-    private void CalculatePreviousWaypoint(){
+    protected void CalculatePreviousWaypoint(){
         previousWaypoint = Waypoints.waypoints[waypointIndex - 1];
     }
     public void TakeDamage(float damageAmount){
@@ -61,7 +61,7 @@ public class EnemyController : MonoBehaviour, IDamageable<float>, ISpawnable<int
             Die();
         }
     }
-    private void Disable(){
+    protected void Disable(){
         currentHp = maxHp;
         waypointIndex = 0;
         previousWaypoint = Waypoints.waypoints[0];
