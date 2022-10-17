@@ -108,7 +108,7 @@ MonoBehaviour:
   previousWaypoint: {fileID: 0}
   targetWaypoint: {fileID: 0}
   enemyToSpawn: {fileID: 6293664390050927840, guid: 4f693875db831be44965be113b7afaec, type: 3}
-  meshRend: {fileID: 5500982133351347509}
+  numEnemiesToSpawn: 5
 --- !u!114 &7772176376453780932
 MonoBehaviour:
   m_ObjectHideFlags: 0

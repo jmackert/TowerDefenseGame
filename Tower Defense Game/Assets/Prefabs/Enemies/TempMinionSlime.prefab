@@ -101,14 +101,15 @@ MonoBehaviour:
   maxHp: 10
   currentHp: 0
   goldWorth: 5
-  unitName: Slime
+  unitName: Minion Slime
   playerDamageAmount: 1
-  waypointIndex: 6
+  waypointIndex: 0
   distanceTraveled: 0
   previousWaypoint: {fileID: 0}
   targetWaypoint: {fileID: 0}
   enemyToSpawn: {fileID: 0}
-  meshRend: {fileID: 0}
+  numEnemiesToSpawn: 5
+  center: {x: 0, y: 0, z: 0}
 --- !u!114 &-3927815408890452823
 MonoBehaviour:
   m_ObjectHideFlags: 0

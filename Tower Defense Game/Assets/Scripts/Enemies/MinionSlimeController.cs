@@ -6,7 +6,7 @@ public class MinionSlimeController : KingSlimeController
 {
     public MinionSlimeController(){
         this.maxHp = 10f;
-        this.unitName = "Slime";
+        this.unitName = "Minion Slime";
         this.movementSpeed = 2.5f;
         this.rotationSpeed = 6f;
         this.goldWorth = 5;
@@ -18,10 +18,12 @@ public class MinionSlimeController : KingSlimeController
         GameObject Player = GameObject.Find("Player");
         player = Player.GetComponent<Player>();
         currentHp = maxHp;
-        Debug.Log("NEW START");
     }
-        protected override void Die()
+
+    protected override void Die()
     {
-        base.Die();   
+        Disable();
+        player.IncreasePlayerGold(goldWorth);
+        WaveSystem.numEnemiesAlive--;
     }
 }
