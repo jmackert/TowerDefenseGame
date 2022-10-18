@@ -92,4 +92,8 @@ public class TimeController : MonoBehaviour
         moonLight.intensity = Mathf.Lerp(maxMoonLightIntensity, 0, lightChangeCurve.Evaluate(dotProduct));
         RenderSettings.ambientLight = Color.Lerp(nightAmbientLight, dayAmbientLight, lightChangeCurve.Evaluate(dotProduct));
     }
+
+    public void GetCurrentTimeOfDay(){
+        
+    }
 }
