@@ -18,15 +18,6 @@ public class KingSlimeController : EnemyController
         this.playerDamageAmount = 1 + numEnemiesToSpawn;
     }
 
-    private void Start(){
-        enemyPool = FindObjectOfType<EnemyPool>();
-        GameObject Player = GameObject.Find("Player");
-        player = Player.GetComponent<Player>();
-        currentHp = maxHp;
-        previousWaypoint = Waypoints.waypoints[0];
-        targetWaypoint = Waypoints.waypoints[1];
-    }
-
     private void Update() {
         Move();
         center = transform.position;
