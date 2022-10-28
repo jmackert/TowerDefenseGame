@@ -5,7 +5,6 @@ using UnityEngine;
 public class WaveSystem : MonoBehaviour
 {
     [SerializeField]private Wave[] waveArray;
-    [SerializeField]private Transform enemySpawnPoint;
     [SerializeField]private Player player;
     [SerializeField]private int waveNumber = 0;
     public static int numEnemiesAlive = 0;
@@ -42,8 +41,7 @@ public class WaveSystem : MonoBehaviour
         GameObject enemyGO = enemyPool.GetEnemy(enemy);
         EnemyController enemySpawning = enemyGO.GetComponent<EnemyController>();
         enemySpawning.GetComponent<EnemyController>();
-        enemyGO.transform.position = enemySpawnPoint.position;
-        enemyGO.transform.rotation = enemySpawnPoint.rotation;
+        enemyGO.transform.position = Waypoints.waypoints[0].position;
         numEnemiesAlive++;
     }
 
